@@ -140,25 +140,25 @@
       box-shadow: 0 0 15px var(--green-glow);
     }
 
-    nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
+    nav ul { display: flex; list-style: none; gap: 1.2rem; align-items: center; }
     nav a {
-      color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.9rem;
-      transition: all 0.3s; position: relative; padding: 0.2rem 0;
+      color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.88rem;
+      transition: all 0.3s; position: relative; padding: 0.2rem 0; white-space: nowrap;
     }
     nav a:hover, nav a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 
     .container { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; position: relative; z-index: 1; }
-    section { margin-bottom: 4.5rem; opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    section { margin-bottom: 4rem; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     section.visible { opacity: 1; transform: translateY(0); }
 
-    .section-header { margin-bottom: 2rem; }
+    .section-header { margin-bottom: 1.8rem; }
     .section-tag {
       font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-      color: var(--primary); margin-bottom: 0.4rem; display: block;
+      color: var(--primary); margin-bottom: 0.4rem; display: block; line-height: 1.4;
     }
     .section-title {
       font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; color: #fff;
-      display: inline-block; position: relative;
+      display: inline-block; position: relative; line-height: 1.3;
     }
 
     .glass-card {
@@ -173,19 +173,25 @@
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
-      transform-style: preserve-3d;
     }
 
     .glass-card:hover {
       border-color: var(--border-highlight);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px var(--primary-glow);
-      transform: translateY(-5px) scale(1.01);
+      transform: translateY(-4px);
     }
 
-    .hero { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 2.5rem; align-items: center; padding: 2rem 0; }
+    .hero { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 2.5rem; align-items: center; padding: 1.5rem 0 2.5rem; }
+    
+    .gradient-name {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
     .hero-title { font-family: var(--font-heading); font-size: 3.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.8rem; }
-    .hero-title span { background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-subtitle { font-size: 1.2rem; color: var(--primary); font-weight: 600; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+    .hero-subtitle { font-size: 1.15rem; color: var(--primary); font-weight: 600; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
     .hero-desc { color: var(--text-muted); font-size: 1.02rem; margin-bottom: 1.5rem; line-height: 1.7; }
 
     .hero-contact-pills { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; }
@@ -380,6 +386,14 @@
       margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
     }
 
+    .placeholder-box {
+      text-align: center;
+      padding: 3rem 2rem;
+      border: 2px dashed rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      background: rgba(56, 189, 248, 0.02);
+    }
+
     footer {
       text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border-color);
       color: var(--text-muted); font-size: 0.9rem; position: relative; z-index: 1;
@@ -415,8 +429,9 @@
           <li><a href="#education">Education & Awards</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications & References</a></li>
+          <li><a href="#sample-works">Sample Works</a></li>
           <li><a href="#schedule-events">Schedule & Calendar</a></li>
-          <li><a href="#certifications">Certifications</a></li>
           <li><a href="#custom-data">Add Info</a></li>
           <li>
             <button id="adminToggleBtn" class="admin-toggle-btn" onclick="toggleAdminLock()">
@@ -438,10 +453,10 @@
       </div>
       <div class="glass-card">
         <p style="color: var(--text-main); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem;">
-          A professional digital portfolio and personal information platform designed to present my academic background, leadership experience, projects, skills, achievements, and professional development. The website also incorporates an integrated calendar of events that provides an overview of his academic commitments, organizational activities, and other scheduled engagements.
+          A professional digital portfolio and personal information platform designed to present my academic background, leadership experience, projects, skills, achievements, and professional development. The website also incorporates an integrated calendar of events that provides an overview of my academic commitments, organizational activities, and scheduled engagements.
         </p>
         <p style="color: var(--primary); font-size: 0.98rem; font-weight: 600;">
-          For inquiries, organizational collaborations and opportunities, visitors may contact directly through the contact information provided on this website.
+          For inquiries, organizational collaborations, and opportunities, visitors may contact directly through the contact details provided on this website.
         </p>
       </div>
     </section>
@@ -449,9 +464,9 @@
     <section id="about" class="hero visible">
       <div>
         <div class="section-tag"><i class="fa-solid fa-sparkles"></i> General Academic Strand & BSTCM</div>
-        <h1 class="hero-title">Johnrey M. <span>Amper</span></h1>
+        <h1 class="hero-title"><span class="gradient-name">Johnrey M. Amper</span></h1>
         <div class="hero-subtitle">
-          <i class="fa-solid fa-graduation-cap"></i> Technology Communication Management Student & Leader
+          <i class="fa-solid fa-graduation-cap"></i> Technology Communication Management Student
         </div>
         
         <p class="hero-desc">
@@ -833,6 +848,55 @@
       </div>
     </section>
 
+    <section id="certifications">
+      <div class="section-header">
+        <span class="section-tag">Credentials & Growth</span>
+        <h2 class="section-title">Projects, Certifications & References</h2>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-diagram-project" style="color:var(--primary);"></i> Projects & Leadership Activities</h3>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li style="margin-bottom:0.4rem;"><strong>Bohol Youth Convergence (BYC) 2023:</strong> Participated as a student leader in a provincial youth leadership convergence in Bohol.</li>
+          <li><strong>Division Schools Press Conference (DSPC) 2023–2024:</strong> Participated in division-level journalism competition representing official school publication.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-certificate" style="color:var(--purple);"></i> Certifications & Trainings</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:0.8rem;">
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> District Leadership Training (District Youth Formation 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Campus Journalism Workshop (DepEd Anda District 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Work Immersion (Human Resource Management Office of Anda 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> No Gaps: Resolve and Connect Through Communication (USTP 2025)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Fundamentals of Journalism (NBCU Academy 2025)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Introduction to Digital Journalism (Reuters 2025)</div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.4rem;"><i class="fa-solid fa-user-check" style="color:var(--accent);"></i> References</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Available upon request.</p>
+      </div>
+    </section>
+
+    <section id="sample-works">
+      <div class="section-header">
+        <span class="section-tag">Portfolio Showcase</span>
+        <h2 class="section-title">Sample Works</h2>
+      </div>
+
+      <div class="glass-card">
+        <div class="placeholder-box">
+          <i class="fa-solid fa-folder-open fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+          <h3 style="color:#fff; font-size:1.3rem; margin-bottom:0.5rem;">Sample Works Showcase</h3>
+          <p style="color: var(--text-muted); font-size: 1rem; font-weight: 500;">
+            <i class="fa-solid fa-clock-rotate-left" style="color:var(--accent);"></i> Information will be uploaded soon.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section id="schedule-events">
       <div class="section-header">
         <span class="section-tag">Academic & Planning Hub</span>
@@ -949,38 +1013,6 @@
           <div class="calendar-grid" id="calendarGrid"></div>
         </div>
 
-      </div>
-    </section>
-
-    <section id="certifications">
-      <div class="section-header">
-        <span class="section-tag">Credentials & Growth</span>
-        <h2 class="section-title">Projects, Certifications & References</h2>
-      </div>
-
-      <div class="glass-card">
-        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-diagram-project" style="color:var(--primary);"></i> Projects & Leadership Activities</h3>
-        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-          <li style="margin-bottom:0.4rem;"><strong>Bohol Youth Convergence (BYC) 2023:</strong> Participated as a student leader in a provincial youth leadership convergence in Bohol.</li>
-          <li><strong>Division Schools Press Conference (DSPC) 2023–2024:</strong> Participated in division-level journalism competition representing official school publication.</li>
-        </ul>
-      </div>
-
-      <div class="glass-card">
-        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-certificate" style="color:var(--purple);"></i> Certifications & Trainings</h3>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:0.8rem;">
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> District Leadership Training (District Youth Formation 2024)</div>
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Campus Journalism Workshop (DepEd Anda District 2024)</div>
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Work Immersion (Human Resource Management Office of Anda 2024)</div>
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> No Gaps: Resolve and Connect Through Communication (USTP 2025)</div>
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Fundamentals of Journalism (NBCU Academy 2025)</div>
-          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Introduction to Digital Journalism (Reuters 2025)</div>
-        </div>
-      </div>
-
-      <div class="glass-card">
-        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.4rem;"><i class="fa-solid fa-user-check" style="color:var(--accent);"></i> References</h3>
-        <p style="color:var(--text-muted); font-size:0.95rem;">Available upon request.</p>
       </div>
     </section>
 
