@@ -908,7 +908,7 @@
               <div class="legend-item"><span class="color-dot" style="background:#38bdf8;"></span> Academic / Event</div>
               <div class="legend-item"><span class="color-dot" style="background:#c084fc;"></span> Leadership Event</div>
               <div class="legend-item"><span class="color-dot" style="background:#f59e0b;"></span> Limited Time</div>
-              <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Busy / Booked</div>
+              <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Postponed / Booked</div>
             </div>
           </div>
 
@@ -999,31 +999,6 @@
       </div>
     </section>
 
-    <section id="comments">
-      <div class="section-header">
-        <span class="section-tag">Endorsements</span>
-        <h2 class="section-title">Viewer Comments & Notes</h2>
-      </div>
-
-      <div class="glass-card">
-        <form onsubmit="handlePostComment(event)">
-          <div style="display:grid; grid-template-columns: 1fr 2fr auto; gap:1rem; align-items:end;">
-            <div class="form-group" style="margin:0;">
-              <label>Your Name / Role</label>
-              <input type="text" id="commenterName" placeholder="Name or Title" required>
-            </div>
-            <div class="form-group" style="margin:0;">
-              <label>Comment</label>
-              <input type="text" id="commentText" placeholder="Leave feedback or endorsement..." required>
-            </div>
-            <button type="submit" class="btn-action btn-primary"><i class="fa-solid fa-comment-dots"></i> Post</button>
-          </div>
-        </form>
-
-        <div id="commentContainer" style="margin-top:1.5rem;"></div>
-      </div>
-    </section>
-
   </div>
 
   <div class="modal-overlay" id="eventModal">
@@ -1052,7 +1027,7 @@
           <option value="#38bdf8">Blue (Academic / Event)</option>
           <option value="#c084fc">Purple (Leadership Event)</option>
           <option value="#f59e0b">Yellow (Limited Availability)</option>
-          <option value="#f87171">Red (Busy / Booked)</option>
+          <option value="#f87171">Red (Postponed / Booked)</option>
         </select>
       </div>
 
@@ -1069,7 +1044,6 @@
   </footer>
 
   <script>
-    // Advanced Cyber-Grid & Floating Geometric Wireframes Animation
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -1168,7 +1142,6 @@
     }
     animateBackground();
 
-    // Intersection Observer for Smooth Section Reveals
     const sections = document.querySelectorAll('section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1177,13 +1150,11 @@
     }, { threshold: 0.1 });
     sections.forEach(s => observer.observe(s));
 
-    // Live View Analytics
     let viewCount = localStorage.getItem('realtime_portfolio_views') || 124;
     viewCount = parseInt(viewCount) + 1;
     localStorage.setItem('realtime_portfolio_views', viewCount);
     document.getElementById('liveViewCount').innerText = viewCount;
 
-    // Password Protected Owner Lock State Management
     let isAdminUnlocked = localStorage.getItem('admin_unlocked') === 'true';
 
     function updateLockUI() {
@@ -1230,7 +1201,6 @@
       updateLockUI();
     }
 
-    // Award Filtering Logic
     function filterAwards(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -1245,11 +1215,34 @@
       });
     }
 
-    // Automated Real-Time Month/Date Detection & Calendar Logic
     const today = new Date();
     let currentYear = today.getFullYear();
     let currentMonth = today.getMonth();
-    let calendarEvents = JSON.parse(localStorage.getItem('live_portfolio_calendar')) || {};
+
+    const initialEvents = {
+      "2026-7-27": {
+        title: "[POSTPONED] THE GOVERNANCE-TO-VALUE SERIES (Speaker: Johnrey Amper)",
+        time: "Postponed to Sept 5",
+        color: "#f87171"
+      },
+      "2026-7-29": {
+        title: "Pre-Launching Orientation of Creative WorldBuilding Society",
+        time: "1:00pm - 5:00pm",
+        color: "#c084fc"
+      },
+      "2026-7-30": {
+        title: "Launching of Creative WorldBuilding Society",
+        time: "12:00pm - 6:00pm",
+        color: "#38bdf8"
+      },
+      "2026-8-5": {
+        title: "THE GOVERNANCE-TO-VALUE SERIES Speaker: Johnrey Amper",
+        time: "8:00am - 5:00pm",
+        color: "#38bdf8"
+      }
+    };
+
+    let calendarEvents = JSON.parse(localStorage.getItem('live_portfolio_calendar')) || initialEvents;
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function renderCalendar() {
@@ -1377,7 +1370,6 @@
       closeModal();
     }
 
-    // Dynamic Extra Resume Entries
     let customDataEntries = JSON.parse(localStorage.getItem('custom_resume_entries')) || [];
 
     function renderCustomData() {
@@ -1429,35 +1421,8 @@
       renderCustomData();
     }
 
-    // Comment Section Logic
-    let comments = JSON.parse(localStorage.getItem('realtime_comments')) || [];
-
-    function renderComments() {
-      const container = document.getElementById('commentContainer');
-      container.innerHTML = '';
-      comments.forEach(c => {
-        const item = document.createElement('div');
-        item.style.cssText = "border-top: 1px solid var(--border-color); padding-top: 0.8rem; margin-top: 0.8rem;";
-        item.innerHTML = `<strong style="color:var(--primary);">${c.name}</strong><p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.2rem;">"${c.text}"</p>`;
-        container.appendChild(item);
-      });
-    }
-
-    function handlePostComment(e) {
-      e.preventDefault();
-      const name = document.getElementById('commenterName').value;
-      const text = document.getElementById('commentText').value;
-
-      comments.unshift({ name, text });
-      localStorage.setItem('realtime_comments', JSON.stringify(comments));
-      renderComments();
-      e.target.reset();
-    }
-
-    // Initialize application
     updateLockUI();
     renderCalendar();
-    renderComments();
   </script>
 </body>
 </html>
