@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Johnrey M. Amper | Interactive Portfolio & Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #050811;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --bg-card-hover: rgba(30, 41, 59, 0.8);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.4);
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.4);
+      --purple: #c084fc;
+      --purple-glow: rgba(192, 132, 252, 0.4);
+      --green: #4ade80;
+      --green-glow: rgba(74, 222, 128, 0.4);
+      --red: #f87171;
+      --red-glow: rgba(248, 113, 113, 0.4);
+      
+      --rank-first: #eab308;
+      --rank-first-bg: rgba(234, 179, 8, 0.12);
+      --rank-first-border: rgba(234, 179, 8, 0.4);
+      
+      --rank-outstanding: #f43f5e;
+      --rank-outstanding-bg: rgba(244, 63, 94, 0.12);
+      --rank-outstanding-border: rgba(244, 63, 94, 0.4);
+
+      --rank-service: #a855f7;
+      --rank-service-bg: rgba(168, 85, 247, 0.12);
+      --rank-service-border: rgba(168, 85, 247, 0.4);
+
+      --rank-runnerup: #38bdf8;
+      --rank-runnerup-bg: rgba(56, 189, 248, 0.12);
+      --rank-runnerup-border: rgba(56, 189, 248, 0.4);
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(56, 189, 248, 0.5);
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.3;
+      animation: floatOrb 20s infinite alternate ease-in-out;
+    }
+
+    .orb-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, #38bdf8, transparent); }
+    .orb-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #818cf8, transparent); animation-delay: -7s; }
+    .orb-3 { top: 35%; left: 30%; width: 40vw; height: 40vw; background: radial-gradient(circle, #c084fc, transparent); animation-delay: -14s; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(80px, 100px) scale(1.15) rotate(180deg); }
+      100% { transform: translate(-60px, 50px) scale(0.9) rotate(360deg); }
+    }
+
+    header {
+      position: sticky; top: 0;
+      background: rgba(5, 8, 17, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      transition: all 0.3s;
+    }
+
+    .nav-container {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2rem;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.35rem; font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .logo-badge {
+      font-size: 0.65rem; font-family: var(--font-body); font-weight: 600;
+      background: rgba(56, 189, 248, 0.15); color: var(--primary);
+      padding: 2px 8px; border-radius: 20px; border: 1px solid var(--primary-glow);
+      -webkit-text-fill-color: initial;
+    }
+
+    .admin-toggle-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 0.5rem 1rem; border-radius: 20px;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .admin-toggle-btn:hover { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); transform: translateY(-2px); }
+    .admin-toggle-btn.unlocked {
+      background: rgba(74, 222, 128, 0.15); border-color: var(--green); color: var(--green);
+      box-shadow: 0 0 15px var(--green-glow);
+    }
+
+    nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.9rem;
+      transition: all 0.3s; position: relative; padding: 0.2rem 0;
+    }
+    nav a:hover, nav a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    section { margin-bottom: 4.5rem; opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-header { margin-bottom: 2rem; }
+    .section-tag {
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--primary); margin-bottom: 0.4rem; display: block;
+    }
+    .section-title {
+      font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; color: #fff;
+      display: inline-block; position: relative;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .glass-card:hover {
+      border-color: var(--border-highlight);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px var(--primary-glow);
+      transform: translateY(-5px) scale(1.01);
+    }
+
+    .hero { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 2.5rem; align-items: center; padding: 2rem 0; }
+    .hero-title { font-family: var(--font-heading); font-size: 3.4rem; font-weight: 800; line-height: 1.15; margin-bottom: 0.8rem; }
+    .hero-title span { background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-subtitle { font-size: 1.2rem; color: var(--primary); font-weight: 600; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+    .hero-desc { color: var(--text-muted); font-size: 1.02rem; margin-bottom: 1.5rem; line-height: 1.7; }
+
+    .hero-contact-pills { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; }
+    .pill {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
+      padding: 0.45rem 1rem; border-radius: 30px; font-size: 0.88rem; color: var(--text-main);
+      display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;
+    }
+    .pill:hover { border-color: var(--primary); background: rgba(56, 189, 248, 0.12); transform: translateY(-3px); box-shadow: 0 5px 15px var(--primary-glow); }
+
+    .badge-live {
+      background: rgba(74, 222, 128, 0.15); color: var(--green); border: 1px solid var(--green-glow);
+      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; text-transform: uppercase;
+    }
+
+    .counter-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
+      border: 1px solid var(--border-highlight);
+      border-radius: 24px; padding: 2.5rem 2rem; text-align: center;
+      position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+      transition: transform 0.3s;
+    }
+    .counter-box:hover { transform: translateY(-5px); }
+    .counter-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #000; font-size: 0.72rem; font-weight: 800;
+      padding: 4px 14px; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;
+      box-shadow: 0 0 15px var(--green-glow); display: flex; align-items: center; gap: 6px;
+    }
+    .pulse-dot { width: 7px; height: 7px; background: #000; border-radius: 50%; animation: pulseDot 1.5s infinite; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.4); } }
+
+    .view-count {
+      font-family: var(--font-heading); font-size: 4.2rem; font-weight: 800;
+      background: linear-gradient(135deg, #4ade80, #38bdf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin: 0.8rem 0 0.2rem; line-height: 1; filter: drop-shadow(0 0 10px rgba(74,222,128,0.3));
+    }
+
+    .award-filter-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .filter-btn {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);
+      color: var(--text-muted); padding: 0.5rem 1.1rem; border-radius: 20px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary); color: #000; border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow); transform: translateY(-2px);
+    }
+
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem;
+    }
+
+    .award-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 14px; padding: 1.1rem 1.3rem;
+      border: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      transition: all 0.3s ease;
+    }
+    .award-card:hover { transform: translateY(-4px) scale(1.02); }
+
+    .award-info { display: flex; align-items: center; gap: 0.9rem; }
+    .award-title { font-size: 0.94rem; font-weight: 600; color: #fff; }
+    .award-meta { font-size: 0.78rem; color: var(--text-muted); display: block; margin-top: 2px; }
+
+    .award-card.rank-first {
+      background: var(--rank-first-bg); border-color: var(--rank-first-border);
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
+    }
+    .award-card.rank-first i { color: var(--rank-first); }
+
+    .award-card.rank-outstanding {
+      background: var(--rank-outstanding-bg); border-color: var(--rank-outstanding-border);
+      box-shadow: 0 0 15px rgba(244, 63, 94, 0.15);
+    }
+    .award-card.rank-outstanding i { color: var(--rank-outstanding); }
+
+    .award-card.rank-service {
+      background: var(--rank-service-bg); border-color: var(--rank-service-border);
+    }
+    .award-card.rank-service i { color: var(--rank-service); }
+
+    .award-card.rank-runnerup {
+      background: var(--rank-runnerup-bg); border-color: var(--rank-runnerup-border);
+    }
+    .award-card.rank-runnerup i { color: var(--rank-runnerup); }
+
+    .skills-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .tag {
+      background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2);
+      color: var(--primary); padding: 0.45rem 0.9rem; border-radius: 10px; font-size: 0.88rem;
+      font-weight: 500; transition: all 0.3s; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .tag:hover { background: var(--primary); color: #000; transform: scale(1.08); box-shadow: 0 0 12px var(--primary-glow); }
+
+    .schedule-events-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    .schedule-table-wrapper { overflow-x: auto; }
+    .schedule-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .schedule-table th, .schedule-table td {
+      border: 1px solid var(--border-color);
+      padding: 0.8rem; text-align: left; vertical-align: top;
+    }
+    .schedule-table th { background: rgba(56, 189, 248, 0.1); color: var(--primary); font-family: var(--font-heading); }
+    .schedule-item {
+      background: rgba(255, 255, 255, 0.03); border-left: 3px solid var(--primary);
+      padding: 0.6rem; border-radius: 6px; font-size: 0.85rem; transition: transform 0.2s;
+    }
+    .schedule-item:hover { transform: translateX(3px); background: rgba(56, 189, 248, 0.08); }
+    .schedule-item .subject { font-weight: 700; color: #fff; display: block; }
+    .schedule-item .time { color: var(--text-muted); font-size: 0.78rem; display: block; margin-top: 2px; }
+
+    .calendar-card {
+      background: var(--bg-card); border-radius: 20px; padding: 2rem;
+      border: 1px solid var(--border-color); backdrop-filter: blur(16px);
+    }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .calendar-title-wrap { display: flex; align-items: center; gap: 1rem; }
+    .calendar-month-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: #fff; }
+    .btn-nav {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+      color: white; width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+      display: inline-flex; justify-content: center; align-items: center; transition: all 0.3s;
+    }
+    .btn-nav:hover { background: var(--primary); border-color: var(--primary); color: #000; box-shadow: 0 0 10px var(--primary-glow); }
+
+    .color-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    .calendar-day-head { text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--primary); padding: 0.5rem 0; text-transform: uppercase; }
+    .calendar-day-cell {
+      min-height: 100px; background: rgba(255,255,255,0.015); border-radius: 12px;
+      padding: 0.6rem; border: 1px solid var(--border-color); transition: all 0.3s;
+      cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; position: relative;
+    }
+    .calendar-day-cell:hover { background: rgba(56, 189, 248, 0.12); border-color: var(--primary-glow); transform: scale(1.04); z-index: 2; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    .calendar-day-cell.is-today {
+      border-color: var(--primary); background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 15px var(--primary-glow);
+    }
+    .day-num { font-weight: 700; font-size: 0.9rem; color: #e2e8f0; }
+
+    .event-chip {
+      font-size: 0.72rem; padding: 4px 6px; border-radius: 6px; color: #000;
+      font-weight: 700; margin-top: 4px; display: block; line-height: 1.2;
+    }
+    .event-time { font-size: 0.65rem; opacity: 0.85; font-weight: 600; display: block; margin-top: 1px; }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+      z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+    }
+    .modal-overlay.active { display: flex; opacity: 1; }
+    .modal-card {
+      background: #0f172a; border: 1px solid var(--border-highlight);
+      border-radius: 20px; padding: 2rem; width: 90%; max-width: 480px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px var(--primary-glow); transform: scale(0.9); transition: transform 0.3s;
+    }
+    .modal-overlay.active .modal-card { transform: scale(1); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .modal-title { font-family: var(--font-heading); font-size: 1.4rem; color: #fff; }
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 600; }
+    
+    input, textarea, select {
+      width: 100%; padding: 0.85rem 1rem; border-radius: 12px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
+      color: #fff; font-size: 0.95rem; outline: none; transition: all 0.3s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--primary); background: rgba(56, 189, 248, 0.08); box-shadow: 0 0 12px var(--primary-glow); }
+
+    .btn-action {
+      padding: 0.85rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; border: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
+    .btn-primary:hover { background: #7dd3fc; transform: translateY(-2px); box-shadow: 0 0 25px var(--primary-glow); }
+    .btn-danger { background: var(--red); color: #000; box-shadow: 0 0 15px var(--red-glow); }
+    .btn-danger:hover { background: #fca5a5; transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+
+    .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+    .lock-notice {
+      background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3);
+      color: var(--red); padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.85rem;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    footer {
+      text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border-color);
+      color: var(--text-muted); font-size: 0.9rem; position: relative; z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .split-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+      .calendar-day-cell { min-height: 70px; padding: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="ambient-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-bolt"></i> JOHNREY AMPER
+        <span class="logo-badge">PORTFOLIO</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about" class="active">About</a></li>
+          <li><a href="#education">Education & Awards</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#schedule-events">Schedule & Calendar</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#custom-data">Add Info</a></li>
+          <li>
+            <button id="adminToggleBtn" class="admin-toggle-btn" onclick="toggleAdminLock()">
+              <i class="fa-solid fa-lock" id="lockIcon"></i>
+              <span id="lockText">Viewer Mode (Locked)</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section id="about" class="hero visible">
+      <div>
+        <div class="section-tag"><i class="fa-solid fa-sparkles"></i> General Academic Strand & BSTCM</div>
+        <h1 class="hero-title">Johnrey M. <span>Amper</span></h1>
+        <div class="hero-subtitle">
+          <i class="fa-solid fa-graduation-cap"></i> Technology Communication Management Student & Leader
+        </div>
+        
+        <p class="hero-desc">
+          Recent Senior High School graduate under the General Academic Strand (GAS) from Candabong National High School, and currently a Second-year Bachelor of Science in Technology Communication Management (BSTCM) student at the University of Science and Technology of Southern Philippines, eager to develop skills in communication and technology. Seeking opportunities where I can apply strong leadership experience and communication abilities, while gaining practical exposure and growing professionally.
+        </p>
+
+        <div class="hero-contact-pills">
+          <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Cagayan de Oro City</div>
+          <div class="pill"><i class="fa-solid fa-envelope" style="color:var(--purple);"></i> johnreyamper4@gmail.com</div>
+          <div class="pill"><i class="fa-solid fa-building-columns" style="color:var(--accent);"></i> USTP Second Year</div>
+        </div>
+      </div>
+
+      <div class="counter-box">
+        <div class="counter-badge"><span class="pulse-dot"></span> Real-Time Analytics</div>
+        <i class="fa-solid fa-chart-line fa-2x" style="color: var(--primary); margin-top: 0.5rem;"></i>
+        <div class="view-count" id="liveViewCount">1</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600;">Total Portfolio Views</p>
+        <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem; margin-top: 0.4rem;">Updates automatically upon visitor interaction</p>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-header">
+        <span class="section-tag">Academic Background & Honors</span>
+        <h2 class="section-title">Education & Award Sequence</h2>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 style="font-size:1.3rem; color:#fff;">Bachelor of Science in Technology Communication Management (BSTCM)</h3>
+            <p style="color:var(--primary); font-weight:600;">University of Science and Technology of Southern Philippines</p>
+          </div>
+          <span class="pill" style="border-color:var(--primary-glow); background:rgba(56,189,248,0.1);">
+            <span class="badge-live">Current</span> Second-Year Student
+          </span>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem;">
+          <div>
+            <h3 style="font-size:1.3rem; color:#fff;">General Academic Strand (GAS) — Senior High School</h3>
+            <p style="color:var(--primary); font-weight:600;">Candabong National High School - Anda, Bohol</p>
+          </div>
+          <span class="pill">Graduated 2025</span>
+        </div>
+
+        <h4 style="color:#fff; font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <i class="fa-solid fa-trophy" style="color:var(--accent);"></i> Honors, Awards & Recognitions Sequence
+        </h4>
+
+        <div class="award-filter-bar">
+          <button class="filter-btn active" onclick="filterAwards('all', this)">All Awards</button>
+          <button class="filter-btn" onclick="filterAwards('top', this)">Top Honors & 1st Places</button>
+          <button class="filter-btn" onclick="filterAwards('leadership', this)">Leadership & Governance</button>
+          <button class="filter-btn" onclick="filterAwards('journalism', this)">Journalism & Arts</button>
+          <button class="filter-btn" onclick="filterAwards('competitions', this)">Competitions & Placements</button>
+        </div>
+
+        <div class="awards-grid" id="awardsContainer">
+          
+          <div class="award-card rank-first" data-category="top competitions">
+            <div class="award-info">
+              <i class="fa-solid fa-trophy fa-lg"></i>
+              <div>
+                <span class="award-title">1st Place, TUKLAS - Life Science Category</span>
+                <span class="award-meta">District Level (2024)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-first" data-category="top journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-award fa-lg"></i>
+              <div>
+                <span class="award-title">Unang Gantimpala, Pinakamagaling na Grupo</span>
+                <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-first" data-category="top journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-medal fa-lg"></i>
+              <div>
+                <span class="award-title">Unang Gantimpala, Pinakamagaling sa Pagganap</span>
+                <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-outstanding" data-category="leadership">
+            <div class="award-info">
+              <i class="fa-solid fa-crown fa-lg"></i>
+              <div>
+                <span class="award-title">Outstanding Supreme Secondary Learner Government President</span>
+                <span class="award-meta">CNHS Leadership Excellence</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-outstanding" data-category="top journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-star fa-lg"></i>
+              <div>
+                <span class="award-title">Outstanding Performance in Communication Arts</span>
+                <span class="award-meta">English Discipline</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-outstanding" data-category="top academic">
+            <div class="award-info">
+              <i class="fa-solid fa-flask fa-lg"></i>
+              <div>
+                <span class="award-title">Outstanding in Research Awardee</span>
+                <span class="award-meta">Academic Excellence</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-service" data-category="leadership">
+            <div class="award-info">
+              <i class="fa-solid fa-building-flag fa-lg"></i>
+              <div>
+                <span class="award-title">Senate of the Philippines Leadership Excellence Awardee</span>
+                <span class="award-meta">National Governance Recognition</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-service" data-category="leadership">
+            <div class="award-info">
+              <i class="fa-solid fa-shield-halved fa-lg"></i>
+              <div>
+                <span class="award-title">Governor Aumentado Leadership Excellence Awardee</span>
+                <span class="award-meta">Provincial Leadership Award</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-service" data-category="leadership">
+            <div class="award-info">
+              <i class="fa-solid fa-user-shield fa-lg"></i>
+              <div>
+                <span class="award-title">Congresswoman Alexie Tutor Leadership Awardee</span>
+                <span class="award-meta">Congressional Distinction</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-runnerup" data-category="competitions">
+            <div class="award-info">
+              <i class="fa-solid fa-ranking-star fa-lg"></i>
+              <div>
+                <span class="award-title">4th Place, Sandugo de Kuradang Group Competition</span>
+                <span class="award-meta">Cultural Competition (2024)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-runnerup" data-category="competitions">
+            <div class="award-info">
+              <i class="fa-solid fa-microscope fa-lg"></i>
+              <div>
+                <span class="award-title">6th Place, TUKLAS - Life Science Category</span>
+                <span class="award-meta">Congressional Level (2024)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-runnerup" data-category="competitions journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-rectangle-ad fa-lg"></i>
+              <div>
+                <span class="award-title">Best in Marketing Promotion (TV Ads Category)</span>
+                <span class="award-meta">Food Exposition (2024)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-runnerup" data-category="journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-radio fa-lg"></i>
+              <div>
+                <span class="award-title">Pinakamagaling na Pangkat ng Mamamahayag</span>
+                <span class="award-meta">Radio Broadcasting (2023)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-runnerup" data-category="journalism">
+            <div class="award-info">
+              <i class="fa-solid fa-microphone fa-lg"></i>
+              <div>
+                <span class="award-title">Pinakamagaling na Mamahayag (Filipino)</span>
+                <span class="award-meta">Radio Broadcasting (2023)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-service" data-category="academic">
+            <div class="award-info">
+              <i class="fa-solid fa-graduation-cap fa-lg"></i>
+              <div>
+                <span class="award-title">Consistent Honor Student</span>
+                <span class="award-meta">Academic Excellence</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="award-card rank-service" data-category="academic">
+            <div class="award-info">
+              <i class="fa-solid fa-hand-holding-heart fa-lg"></i>
+              <div>
+                <span class="award-title">Consistent Service & Conduct Awardee</span>
+                <span class="award-meta">Organizational Service</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-header">
+        <span class="section-tag">Core Competencies</span>
+        <h2 class="section-title">Skills & Languages</h2>
+      </div>
+
+      <div class="skills-wrapper">
+        <div class="glass-card">
+          <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-laptop-code" style="color:var(--primary);"></i> Technical Proficiency</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fa-solid fa-palette"></i> Canva</span>
+            <span class="tag"><i class="fa-solid fa-file-word"></i> Microsoft Word</span>
+            <span class="tag"><i class="fa-solid fa-file-powerpoint"></i> Microsoft PowerPoint</span>
+            <span class="tag"><i class="fa-solid fa-file-excel"></i> Microsoft Excel</span>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-brain" style="color:var(--purple);"></i> Soft Skills</h3>
+          <div class="skill-tags">
+            <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-users"></i> Leadership</span>
+            <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-comments"></i> Communication</span>
+            <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-sliders"></i> Adaptability</span>
+            <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-magnifying-glass"></i> Detail-Oriented</span>
+            <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-lightbulb"></i> Problem-Solving</span>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-language" style="color:var(--green);"></i> Languages</h3>
+          <div class="skill-tags">
+            <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-globe"></i> English</span>
+            <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comments"></i> Filipino</span>
+            <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comment-dots"></i> Bisaya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-header">
+        <span class="section-tag">Leadership & Governance</span>
+        <h2 class="section-title">Work Experience, Internship & Current Roles</h2>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Vice President for External Affairs</h3>
+            <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
+          </div>
+          <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+            <span class="badge-live">Current Role</span> 2026 – Present
+          </span>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Head of Unit on Extracurricular Affairs</h3>
+            <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
+          </div>
+          <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+            <span class="badge-live">Current Role</span> 2026 – Present
+          </span>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Student-Adviser</h3>
+            <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
+          </div>
+          <span class="pill">2024 – 2025</span>
+        </div>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li>Provided guidance and support to new student leaders of the organization.</li>
+          <li>Assisted in mentoring student officers in implementing and improving organizational activities.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Layout Artist</h3>
+            <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
+          </div>
+          <span class="pill">2024 – 2025</span>
+        </div>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li>Designed layouts for articles, features, and publication materials.</li>
+          <li>Ensured visual consistency and readability of school publication outputs.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">President</h3>
+            <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
+          </div>
+          <span class="pill">2023 – 2024</span>
+        </div>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li>Led student government initiatives and represented the student body.</li>
+          <li>Organized and supervised student activities, events, and leadership programs.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Board Member</h3>
+            <p style="color:var(--primary); font-weight:600;">Anda District Federation of the Supreme Secondary Learner Government (SSLG)</p>
+          </div>
+          <span class="pill">2023 – 2024</span>
+        </div>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li>Participated in federation-level meetings and planning of inter-school activities.</li>
+          <li>Contributed to leadership discussions and student governance initiatives.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#fff;">Associate Editor</h3>
+            <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
+          </div>
+          <span class="pill">2023 – 2024</span>
+        </div>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li>Assisted in editing articles and ensuring content quality for school publication.</li>
+          <li>Collaborated with writers and editorial team on publication projects.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="schedule-events">
+      <div class="section-header">
+        <span class="section-tag">Academic & Planning Hub</span>
+        <h2 class="section-title">Class Schedule & Dynamic Calendar</h2>
+      </div>
+
+      <div class="schedule-events-container">
+        
+        <div class="glass-card">
+          <h3 style="font-size:1.3rem; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.6rem;">
+            <i class="fa-solid fa-clock" style="color:var(--primary);"></i> Weekly Academic Timetable
+          </h3>
+          <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
+            <i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Restricted View: Displaying subject titles and corresponding times only for privacy and security purposes.
+          </p>
+
+          <div class="schedule-table-wrapper">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Monday</th>
+                  <th>Tuesday</th>
+                  <th>Wednesday</th>
+                  <th>Thursday</th>
+                  <th>Friday</th>
+                  <th>Saturday</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="schedule-item">
+                      <span class="subject">Learning Academic & Professional English Language</span>
+                      <span class="time">1:00 PM - 4:00 PM</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                      <span class="subject">Personnel Management</span>
+                      <span class="time">10:00 AM - 11:30 AM</span>
+                    </div>
+                    <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                      <span class="subject">The Contemporary World</span>
+                      <span class="time">1:00 PM - 2:30 PM</span>
+                    </div>
+                    <div class="schedule-item">
+                      <span class="subject">Foreign Language 2</span>
+                      <span class="time">5:30 PM - 7:00 PM</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="schedule-item">
+                      <span class="subject">Physical Activity Towards Health & Fitness 1</span>
+                      <span class="time">3:00 PM - 5:00 PM</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                      <span class="subject">Learning Academic & Professional English Language</span>
+                      <span class="time">12:30 PM - 2:30 PM</span>
+                    </div>
+                    <div class="schedule-item">
+                      <span class="subject">Human Computer Interface</span>
+                      <span class="time">5:00 PM - 7:00 PM</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                      <span class="subject">Personnel Management</span>
+                      <span class="time">10:00 AM - 11:30 AM</span>
+                    </div>
+                    <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                      <span class="subject">The Contemporary World</span>
+                      <span class="time">1:00 PM - 2:30 PM</span>
+                    </div>
+                    <div class="schedule-item">
+                      <span class="subject">Foreign Language 2</span>
+                      <span class="time">5:30 PM - 7:00 PM</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="schedule-item">
+                      <span class="subject">Human Computer Interface</span>
+                      <span class="time">10:00 AM - 1:00 PM</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <div class="calendar-title-wrap">
+              <button class="btn-nav" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+              <h3 class="calendar-month-title" id="monthYearTitle">August 2026</h3>
+              <button class="btn-nav" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="color-legend">
+              <div class="legend-item"><span class="color-dot" style="background:#4ade80;"></span> Available</div>
+              <div class="legend-item"><span class="color-dot" style="background:#38bdf8;"></span> Academic / Event</div>
+              <div class="legend-item"><span class="color-dot" style="background:#c084fc;"></span> Leadership Event</div>
+              <div class="legend-item"><span class="color-dot" style="background:#f59e0b;"></span> Limited Time</div>
+              <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Busy / Booked</div>
+            </div>
+          </div>
+
+          <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.2rem;">
+            <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Calendar automatically detects today's date. Click on any date to inspect details or edit (Owner access required).
+          </p>
+
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="certifications">
+      <div class="section-header">
+        <span class="section-tag">Credentials & Growth</span>
+        <h2 class="section-title">Projects, Certifications & References</h2>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-diagram-project" style="color:var(--primary);"></i> Projects & Leadership Activities</h3>
+        <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+          <li style="margin-bottom:0.4rem;"><strong>Bohol Youth Convergence (BYC) 2023:</strong> Participated as a student leader in a provincial youth leadership convergence in Bohol.</li>
+          <li><strong>Division Schools Press Conference (DSPC) 2023–2024:</strong> Participated in division-level journalism competition representing official school publication.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-certificate" style="color:var(--purple);"></i> Certifications & Trainings</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:0.8rem;">
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> District Leadership Training (District Youth Formation 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Campus Journalism Workshop (DepEd Anda District 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Work Immersion (Human Resource Management Office of Anda 2024)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> No Gaps: Resolve and Connect Through Communication (USTP 2025)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Fundamentals of Journalism (NBCU Academy 2025)</div>
+          <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Introduction to Digital Journalism (Reuters 2025)</div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.4rem;"><i class="fa-solid fa-user-check" style="color:var(--accent);"></i> References</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Available upon request.</p>
+      </div>
+    </section>
+
+    <section id="custom-data">
+      <div class="section-header">
+        <span class="section-tag">Resume & Custom Data Entry</span>
+        <h2 class="section-title">Add Extra Resume Information</h2>
+      </div>
+
+      <div class="split-grid">
+        <div class="glass-card">
+          <h3 style="color:#fff; font-size:1.2rem; margin-bottom:1rem;"><i class="fa-solid fa-plus-circle" style="color:var(--primary);"></i> Entry Form</h3>
+          
+          <div id="formLockNotice" class="lock-notice">
+            <i class="fa-solid fa-lock"></i> Viewer Mode Enabled: Form locked. Click "Viewer Mode" on top nav bar to unlock editing.
+          </div>
+
+          <form id="customDataForm" onsubmit="handleAddData(event)">
+            <div class="form-group">
+              <label>Section / Category Title</label>
+              <input type="text" id="infoCategory" placeholder="e.g. Technical Project, Soft Skill, Certificate" required>
+            </div>
+            <div class="form-group">
+              <label>Title / Header</label>
+              <input type="text" id="infoTitle" placeholder="e.g. Lead Designer / Project Name" required>
+            </div>
+            <div class="form-group">
+              <label>Date or Timeline (Optional)</label>
+              <input type="text" id="infoDate" placeholder="e.g. 2026 - Present">
+            </div>
+            <div class="form-group">
+              <label>Description / Details</label>
+              <textarea id="infoDetails" rows="4" placeholder="Enter key responsibilities, bullet points, or overview..." required></textarea>
+            </div>
+            <button type="submit" id="submitResumeBtn" class="btn-action btn-primary" style="width:100%; justify-content:center;">
+              <i class="fa-solid fa-floppy-disk"></i> Add Information
+            </button>
+          </form>
+        </div>
+
+        <div class="glass-card">
+          <h3 style="color:#fff; font-size:1.2rem; margin-bottom:0.4rem;"><i class="fa-solid fa-list-check" style="color:var(--accent);"></i> Added Information</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">Entries added through the form append below in real-time and save locally in your browser.</p>
+          <div id="dynamicDataDisplay" style="max-height: 420px; overflow-y: auto; padding-right: 0.5rem;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="comments">
+      <div class="section-header">
+        <span class="section-tag">Endorsements</span>
+        <h2 class="section-title">Viewer Comments & Notes</h2>
+      </div>
+
+      <div class="glass-card">
+        <form onsubmit="handlePostComment(event)">
+          <div style="display:grid; grid-template-columns: 1fr 2fr auto; gap:1rem; align-items:end;">
+            <div class="form-group" style="margin:0;">
+              <label>Your Name / Role</label>
+              <input type="text" id="commenterName" placeholder="Name or Title" required>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label>Comment</label>
+              <input type="text" id="commentText" placeholder="Leave feedback or endorsement..." required>
+            </div>
+            <button type="submit" class="btn-action btn-primary"><i class="fa-solid fa-comment-dots"></i> Post</button>
+          </div>
+        </form>
+
+        <div id="commentContainer" style="margin-top:1.5rem;"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="modal-overlay" id="eventModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalDayTitle">Schedule Event</h3>
+        <button class="btn-nav" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <input type="hidden" id="modalDateKey">
+
+      <div class="form-group">
+        <label>Event Title</label>
+        <input type="text" id="eventTitle" placeholder="e.g., Campus Event / Meeting">
+      </div>
+
+      <div class="form-group">
+        <label>Event Time</label>
+        <input type="text" id="eventTime" placeholder="e.g., 9:00 AM - 12:00 PM">
+      </div>
+
+      <div class="form-group">
+        <label>Status / Color Designation</label>
+        <select id="eventColor">
+          <option value="#4ade80">Green (Available)</option>
+          <option value="#38bdf8">Blue (Academic / Event)</option>
+          <option value="#c084fc">Purple (Leadership Event)</option>
+          <option value="#f59e0b">Yellow (Limited Availability)</option>
+          <option value="#f87171">Red (Busy / Booked)</option>
+        </select>
+      </div>
+
+      <div id="modalActionContainer" style="display:flex; justify-content:space-between; gap:0.8rem; margin-top:1.5rem;">
+        <button class="btn-action btn-primary" id="saveEventBtn" onclick="saveEvent()"><i class="fa-solid fa-floppy-disk"></i> Save Event</button>
+        <button class="btn-action btn-danger" id="deleteEventBtn" onclick="deleteEvent()"><i class="fa-solid fa-trash"></i> Delete</button>
+        <button class="btn-action btn-secondary" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Designed, Developed, & Created by <strong>Johnrey M. Amper</strong> © 2026</p>
+  </footer>
+
+  <script>
+    // Advanced Cyber-Grid & Floating Geometric Wireframes Animation
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 40;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 40;
+    });
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Shape {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 25 + 10;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.vRot = (Math.random() - 0.5) * 0.02;
+        this.sides = Math.floor(Math.random() * 3) + 3;
+        this.opacity = Math.random() * 0.3 + 0.1;
+        this.color = Math.random() > 0.5 ? '#38bdf8' : '#c084fc';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.rotation += this.vRot;
+
+        if (this.x < -50 || this.x > canvas.width + 50 || this.y < -50 || this.y > canvas.height + 50) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x + mouseX * 0.2, this.y + mouseY * 0.2);
+        ctx.rotate(this.rotation);
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        for (let i = 0; i < this.sides; i++) {
+          const angle = (i * 2 * Math.PI) / this.sides;
+          const px = this.size * Math.cos(angle);
+          const py = this.size * Math.sin(angle);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    const shapes = Array.from({ length: 30 }, () => new Shape());
+    let gridOffset = 0;
+
+    function drawGrid() {
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.04)';
+      ctx.lineWidth = 1;
+      const step = 60;
+      gridOffset = (gridOffset + 0.2) % step;
+
+      for (let x = gridOffset; x < canvas.width; x += step) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+      for (let y = gridOffset; y < canvas.height; y += step) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+    }
+
+    function animateBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGrid();
+      shapes.forEach(shape => {
+        shape.update();
+        shape.draw();
+      });
+      requestAnimationFrame(animateBackground);
+    }
+    animateBackground();
+
+    // Intersection Observer for Smooth Section Reveals
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(s => observer.observe(s));
+
+    // Live View Analytics
+    let viewCount = localStorage.getItem('realtime_portfolio_views') || 124;
+    viewCount = parseInt(viewCount) + 1;
+    localStorage.setItem('realtime_portfolio_views', viewCount);
+    document.getElementById('liveViewCount').innerText = viewCount;
+
+    // Password Protected Owner Lock State Management
+    let isAdminUnlocked = localStorage.getItem('admin_unlocked') === 'true';
+
+    function updateLockUI() {
+      const btn = document.getElementById('adminToggleBtn');
+      const icon = document.getElementById('lockIcon');
+      const text = document.getElementById('lockText');
+      const notice = document.getElementById('formLockNotice');
+      const submitBtn = document.getElementById('submitResumeBtn');
+      const inputs = document.querySelectorAll('#customDataForm input, #customDataForm textarea');
+
+      if (isAdminUnlocked) {
+        btn.classList.add('unlocked');
+        icon.className = 'fa-solid fa-lock-open';
+        text.innerText = 'Owner Access (Unlocked)';
+        notice.style.display = 'none';
+        submitBtn.disabled = false;
+        inputs.forEach(input => input.disabled = false);
+      } else {
+        btn.classList.remove('unlocked');
+        icon.className = 'fa-solid fa-lock';
+        text.innerText = 'Viewer Mode (Locked)';
+        notice.style.display = 'flex';
+        submitBtn.disabled = true;
+        inputs.forEach(input => input.disabled = true);
+      }
+      renderCustomData();
+    }
+
+    function toggleAdminLock() {
+      if (!isAdminUnlocked) {
+        const password = prompt("Enter owner passcode to enable editing mode:");
+        if (password === "127955") {
+          isAdminUnlocked = true;
+          localStorage.setItem('admin_unlocked', 'true');
+          alert("Editing mode unlocked!");
+        } else if (password !== null) {
+          alert("Incorrect passcode! Viewing mode maintained.");
+        }
+      } else {
+        isAdminUnlocked = false;
+        localStorage.setItem('admin_unlocked', 'false');
+        alert("Locked. Viewer mode active.");
+      }
+      updateLockUI();
+    }
+
+    // Award Filtering Logic
+    function filterAwards(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const awards = document.querySelectorAll('#awardsContainer .award-card');
+      awards.forEach(award => {
+        if (category === 'all' || award.dataset.category.includes(category)) {
+          award.style.display = 'flex';
+        } else {
+          award.style.display = 'none';
+        }
+      });
+    }
+
+    // Automated Real-Time Month/Date Detection & Calendar Logic
+    const today = new Date();
+    let currentYear = today.getFullYear();
+    let currentMonth = today.getMonth();
+    let calendarEvents = JSON.parse(localStorage.getItem('live_portfolio_calendar')) || {};
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      const title = document.getElementById('monthYearTitle');
+      grid.innerHTML = '';
+      title.innerText = `${months[currentMonth]} ${currentYear}`;
+
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayNames.forEach(d => {
+        const h = document.createElement('div');
+        h.className = 'calendar-day-head';
+        h.innerText = d;
+        grid.appendChild(h);
+      });
+
+      const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const startDay = new Date(currentYear, currentMonth, 1).getDay();
+
+      for (let i = 0; i < startDay; i++) {
+        grid.appendChild(document.createElement('div'));
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const dateKey = `${currentYear}-${currentMonth}-${day}`;
+        const cell = document.createElement('div');
+        cell.className = 'calendar-day-cell';
+        
+        if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+          cell.classList.add('is-today');
+        }
+
+        cell.onclick = () => openModal(dateKey, day);
+
+        const num = document.createElement('span');
+        num.className = 'day-num';
+        num.innerText = day;
+        cell.appendChild(num);
+
+        if (calendarEvents[dateKey]) {
+          const ev = calendarEvents[dateKey];
+          const chip = document.createElement('div');
+          chip.className = 'event-chip';
+          chip.style.backgroundColor = ev.color;
+          chip.innerHTML = `${ev.title} <span class="event-time">${ev.time}</span>`;
+          cell.appendChild(chip);
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function changeMonth(dir) {
+      currentMonth += dir;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar();
+    }
+
+    function openModal(key, day) {
+      document.getElementById('modalDateKey').value = key;
+      document.getElementById('modalDayTitle').innerText = `${months[currentMonth]} ${day}, ${currentYear}`;
+      
+      const ev = calendarEvents[key];
+      document.getElementById('eventTitle').value = ev ? ev.title : '';
+      document.getElementById('eventTime').value = ev ? ev.time : '';
+      document.getElementById('eventColor').value = ev ? ev.color : '#4ade80';
+
+      const titleInput = document.getElementById('eventTitle');
+      const timeInput = document.getElementById('eventTime');
+      const colorSelect = document.getElementById('eventColor');
+      const saveBtn = document.getElementById('saveEventBtn');
+      const deleteBtn = document.getElementById('deleteEventBtn');
+
+      if (!isAdminUnlocked) {
+        titleInput.disabled = true;
+        timeInput.disabled = true;
+        colorSelect.disabled = true;
+        saveBtn.style.display = 'none';
+        deleteBtn.style.display = 'none';
+      } else {
+        titleInput.disabled = false;
+        timeInput.disabled = false;
+        colorSelect.disabled = false;
+        saveBtn.style.display = 'inline-flex';
+        deleteBtn.style.display = 'inline-flex';
+      }
+
+      document.getElementById('eventModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('eventModal').classList.remove('active');
+    }
+
+    function saveEvent() {
+      if (!isAdminUnlocked) return;
+      const key = document.getElementById('modalDateKey').value;
+      const title = document.getElementById('eventTitle').value;
+      const time = document.getElementById('eventTime').value;
+      const color = document.getElementById('eventColor').value;
+
+      if (title.trim() === '') {
+        delete calendarEvents[key];
+      } else {
+        calendarEvents[key] = { title, time, color };
+      }
+
+      localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
+      renderCalendar();
+      closeModal();
+    }
+
+    function deleteEvent() {
+      if (!isAdminUnlocked) return;
+      const key = document.getElementById('modalDateKey').value;
+      delete calendarEvents[key];
+      localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
+      renderCalendar();
+      closeModal();
+    }
+
+    // Dynamic Extra Resume Entries
+    let customDataEntries = JSON.parse(localStorage.getItem('custom_resume_entries')) || [];
+
+    function renderCustomData() {
+      const display = document.getElementById('dynamicDataDisplay');
+      display.innerHTML = '';
+      if (customDataEntries.length === 0) {
+        display.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No extra custom details added yet.</p>';
+        return;
+      }
+      customDataEntries.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; border-left: 4px solid var(--primary);";
+        
+        let removeButtonHtml = isAdminUnlocked 
+          ? `<button onclick="deleteDataEntry(${index})" style="background:none; border:none; color:var(--red); font-size:0.8rem; cursor:pointer; margin-top:0.6rem;"><i class="fa-solid fa-trash"></i> Remove Entry</button>`
+          : '';
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span style="font-size:0.75rem; color:var(--primary); text-transform:uppercase; font-weight:700;">${item.category}</span>
+            ${item.date ? `<span class="pill" style="font-size:0.75rem; padding: 2px 8px;">${item.date}</span>` : ''}
+          </div>
+          <h4 style="color:#fff; font-size:1.05rem; margin-bottom:0.3rem;">${item.title}</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem;">${item.details}</p>
+          ${removeButtonHtml}
+        `;
+        display.appendChild(card);
+      });
+    }
+
+    function handleAddData(e) {
+      e.preventDefault();
+      if (!isAdminUnlocked) return;
+      const category = document.getElementById('infoCategory').value;
+      const title = document.getElementById('infoTitle').value;
+      const date = document.getElementById('infoDate').value;
+      const details = document.getElementById('infoDetails').value;
+
+      customDataEntries.unshift({ category, title, date, details });
+      localStorage.setItem('custom_resume_entries', JSON.stringify(customDataEntries));
+      renderCustomData();
+      document.getElementById('customDataForm').reset();
+    }
+
+    function deleteDataEntry(index) {
+      if (!isAdminUnlocked) return;
+      customDataEntries.splice(index, 1);
+      localStorage.setItem('custom_resume_entries', JSON.stringify(customDataEntries));
+      renderCustomData();
+    }
+
+    // Comment Section Logic
+    let comments = JSON.parse(localStorage.getItem('realtime_comments')) || [];
+
+    function renderComments() {
+      const container = document.getElementById('commentContainer');
+      container.innerHTML = '';
+      comments.forEach(c => {
+        const item = document.createElement('div');
+        item.style.cssText = "border-top: 1px solid var(--border-color); padding-top: 0.8rem; margin-top: 0.8rem;";
+        item.innerHTML = `<strong style="color:var(--primary);">${c.name}</strong><p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.2rem;">"${c.text}"</p>`;
+        container.appendChild(item);
+      });
+    }
+
+    function handlePostComment(e) {
+      e.preventDefault();
+      const name = document.getElementById('commenterName').value;
+      const text = document.getElementById('commentText').value;
+
+      comments.unshift({ name, text });
+      localStorage.setItem('realtime_comments', JSON.stringify(comments));
+      renderComments();
+      e.target.reset();
+    }
+
+    // Initialize application
+    updateLockUI();
+    renderCalendar();
+    renderComments();
+  </script>
+</body>
+</html>
