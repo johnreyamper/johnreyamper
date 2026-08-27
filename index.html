@@ -524,7 +524,7 @@
 
     .btn-action {
       padding: 0.85rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: 0.9rem;
-      cursor: pointer; border: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
+      cursor: pointer; border: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
     }
     .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
     .btn-primary:hover { background: #7dd3fc; transform: translateY(-2px); box-shadow: 0 0 25px var(--primary-glow); }
@@ -543,6 +543,30 @@
     .sample-works-box {
       border: 2px dashed rgba(56, 189, 248, 0.3); border-radius: 16px;
       padding: 3rem 2rem; text-align: center; background: rgba(15, 23, 42, 0.3);
+    }
+
+    /* Article Card Styles */
+    .article-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+    .article-card:hover {
+      border-color: var(--border-highlight);
+      background: rgba(30, 41, 59, 0.6);
+    }
+    .editorial-note {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
     }
 
     .mobile-nav-toggle {
@@ -607,6 +631,7 @@
         <a onclick="switchSlide(2); scrollToSection('skills')" class="nav-item"><i class="fa-solid fa-brain"></i> Core Skills</a>
         <a onclick="switchSlide(2); scrollToSection('experience')" class="nav-item"><i class="fa-solid fa-briefcase"></i> Experience & Roles</a>
         <a onclick="switchSlide(2); scrollToSection('certifications')" class="nav-item"><i class="fa-solid fa-certificate"></i> Credentials & Projects</a>
+        <a onclick="switchSlide(2); scrollToSection('articles')" class="nav-item"><i class="fa-solid fa-newspaper"></i> Articles</a>
         <a onclick="switchSlide(2); scrollToSection('sample-works')" class="nav-item"><i class="fa-solid fa-folder-open"></i> Sample Works</a>
         <a onclick="switchSlide(2); scrollToSection('schedule-events')" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Schedule & Calendar</a>
         <a onclick="switchSlide(2); scrollToSection('custom-data')" class="nav-item"><i class="fa-solid fa-circle-plus"></i> Add Info</a>
@@ -1178,6 +1203,41 @@
           </div>
         </section>
 
+        <!-- ARTICLES SECTION -->
+        <section id="articles">
+          <div class="section-header">
+            <span class="section-tag">Publications & Writing</span>
+            <h2 class="section-title">Articles</h2>
+          </div>
+
+          <div class="glass-card">
+            <div class="editorial-note">
+              <p><strong>Editorial Note:</strong> Please note that the works featured below are independently authored personal works. These materials have not undergone formal peer review and have not been published in academic journals or scholarly platforms. They are presented solely as independent expressions of the author’s thoughts, perspectives, and ideas.</p>
+            </div>
+
+            <!-- Article 1 -->
+            <div class="article-card">
+              <h3 style="color: var(--primary); font-size: 1.25rem; font-family: var(--font-heading); margin-bottom: 0.3rem;">PRINCIPIUM PRIMUM I</h3>
+              <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.3rem;">QUESTION EVERYTHING: Why Every Great Change Begins by Asking "Why?"</h4>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">By Johnrey Murillo Amper</p>
+              <a href="https://online.fliphtml5.com/firstprinciples/Principium-Primum-1-ssBr/?fbclid=IwY2xjawT8uGpwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMURkUUJybVpYMlpaVmVVVk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe91RrUAhd6d5u-3-rZnVBCuDvuWQO2QkkYaeKfiPE0Y1UYo5KPHxUH6NHsWI_aem_eqTiOFf8VjnZnfBUNqfnBA#p=1" target="_blank" rel="noopener noreferrer" class="btn-action btn-primary" style="display: inline-flex;">
+                <i class="fa-solid fa-book-open"></i> Read Article
+              </a>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="article-card">
+              <h3 style="color: var(--primary); font-size: 1.25rem; font-family: var(--font-heading); margin-bottom: 0.3rem;">LIVED PRINCIPLE 1</h3>
+              <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.3rem;">THE HUMAN FACE OF THE SOCIETY OF SAINT PIUS X: The Difference Between Reading About the SSPX and Meeting It</h4>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">By Johnrey Murillo Amper</p>
+              <a href="https://online.fliphtml5.com/firstprinciples/lskk/" target="_blank" rel="noopener noreferrer" class="btn-action btn-primary" style="display: inline-flex;">
+                <i class="fa-solid fa-book-open"></i> Read Article
+              </a>
+            </div>
+
+          </div>
+        </section>
+
         <section id="sample-works">
           <div class="section-header">
             <span class="section-tag">Portfolio & Showcase</span>
@@ -1718,62 +1778,50 @@
 
     function changeMonth(dir) {
       currentMonth += dir;
-      if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-      } else if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-      }
+      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
       renderCalendar();
     }
 
     function openModal(dateKey, day, dayOfWeek) {
-      const modal = document.getElementById('eventModal');
-      const title = document.getElementById('modalDayTitle');
-      const statusBox = document.getElementById('modalStatusContainer');
-      const titleInput = document.getElementById('eventTitle');
-      const timeInput = document.getElementById('eventTime');
-      const colorSelect = document.getElementById('eventColor');
-      const saveBtn = document.getElementById('saveEventBtn');
-      const deleteBtn = document.getElementById('deleteEventBtn');
-
       document.getElementById('modalDateKey').value = dateKey;
-      title.innerText = `${months[currentMonth]} ${day}, ${currentYear}`;
-
-      const ev = calendarEvents[dateKey];
-
-      if (ev) {
-        titleInput.value = ev.title;
-        timeInput.value = ev.time;
-        colorSelect.value = ev.color;
-        statusBox.innerHTML = `<div class="status-badge-large" style="background:${ev.color};"><i class="fa-solid fa-circle-info"></i> Event Scheduled</div>`;
+      document.getElementById('modalDayTitle').innerText = `${months[currentMonth]} ${day}, ${currentYear}`;
+      
+      const statusContainer = document.getElementById('modalStatusContainer');
+      let statusHtml = "";
+      
+      if (calendarEvents[dateKey]) {
+        const ev = calendarEvents[dateKey];
+        statusHtml = `<div class="status-badge-large" style="background:${ev.color}">Custom Event Set</div>`;
+        document.getElementById('eventTitle').value = ev.title;
+        document.getElementById('eventTime').value = ev.time;
+        document.getElementById('eventColor').value = ev.color;
       } else if (classTimetable[dayOfWeek]) {
-        titleInput.value = classTimetable[dayOfWeek];
-        timeInput.value = "See Class Timetable";
-        colorSelect.value = "#f59e0b";
-        statusBox.innerHTML = `<div class="status-badge-large" style="background:#f59e0b;"><i class="fa-solid fa-graduation-cap"></i> Classes Scheduled Today</div>`;
+        statusHtml = `<div class="status-badge-large" style="background:#f59e0b">Class Schedule Day</div><p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">${classTimetable[dayOfWeek]}</p>`;
+        document.getElementById('eventTitle').value = "";
+        document.getElementById('eventTime').value = "";
+        document.getElementById('eventColor').value = "#38bdf8";
       } else {
-        titleInput.value = "Available";
-        timeInput.value = "Open for appointments / meetings";
-        colorSelect.value = "#4ade80";
-        statusBox.innerHTML = `<div class="status-badge-large" style="background:#4ade80;"><i class="fa-solid fa-check"></i> Available All Day</div>`;
+        statusHtml = `<div class="status-badge-large" style="background:#4ade80">Fully Available Day</div>`;
+        document.getElementById('eventTitle').value = "";
+        document.getElementById('eventTime').value = "";
+        document.getElementById('eventColor').value = "#4ade80";
       }
+      
+      statusContainer.innerHTML = statusHtml;
 
-      if (isAdminUnlocked) {
-        titleInput.disabled = false;
-        timeInput.disabled = false;
-        colorSelect.disabled = false;
-        saveBtn.style.display = 'inline-flex';
-        deleteBtn.style.display = ev ? 'inline-flex' : 'none';
-      } else {
-        titleInput.disabled = true;
-        timeInput.disabled = true;
-        colorSelect.disabled = true;
+      const saveBtn = document.getElementById('saveEventBtn');
+      const delBtn = document.getElementById('deleteEventBtn');
+      
+      if (!isAdminUnlocked) {
         saveBtn.style.display = 'none';
-        deleteBtn.style.display = 'none';
+        delBtn.style.display = 'none';
+      } else {
+        saveBtn.style.display = 'inline-flex';
+        delBtn.style.display = calendarEvents[dateKey] ? 'inline-flex' : 'none';
       }
 
+      const modal = document.getElementById('eventModal');
       modal.classList.add('active');
     }
 
@@ -1782,93 +1830,91 @@
     }
 
     function saveEvent() {
-      if (!isAdminUnlocked) return;
-      const dateKey = document.getElementById('modalDateKey').value;
-      const title = document.getElementById('eventTitle').value.trim();
-      const time = document.getElementById('eventTime').value.trim();
+      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
+      const key = document.getElementById('modalDateKey').value;
+      const title = document.getElementById('eventTitle').value;
+      const time = document.getElementById('eventTime').value;
       const color = document.getElementById('eventColor').value;
 
-      if (!title) {
-        alert("Please provide an event title.");
-        return;
-      }
+      if (!title) return alert("Please enter an event title.");
 
-      calendarEvents[dateKey] = { title, time, color };
+      calendarEvents[key] = { title, time, color };
       localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
       renderCalendar();
       closeModal();
     }
 
     function deleteEvent() {
-      if (!isAdminUnlocked) return;
-      const dateKey = document.getElementById('modalDateKey').value;
-      if (calendarEvents[dateKey]) {
-        delete calendarEvents[dateKey];
+      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
+      const key = document.getElementById('modalDateKey').value;
+      if (calendarEvents[key]) {
+        delete calendarEvents[key];
         localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
         renderCalendar();
       }
       closeModal();
     }
 
-    let resumeDataList = JSON.parse(localStorage.getItem('live_portfolio_resume_data')) || [];
-
-    function handleAddData(e) {
-      e.preventDefault();
-      if (!isAdminUnlocked) {
-        alert("Viewer Mode active! Unlock editing mode first.");
-        return;
-      }
-
-      const category = document.getElementById('infoCategory').value.trim();
-      const title = document.getElementById('infoTitle').value.trim();
-      const date = document.getElementById('infoDate').value.trim();
-      const details = document.getElementById('infoDetails').value.trim();
-
-      const newItem = { id: Date.now(), category, title, date, details };
-      resumeDataList.push(newItem);
-      localStorage.setItem('live_portfolio_resume_data', JSON.stringify(resumeDataList));
-
-      document.getElementById('customDataForm').reset();
-      renderCustomData();
-      alert("Information successfully added!");
-    }
-
-    function deleteCustomData(id) {
-      if (!isAdminUnlocked) return;
-      resumeDataList = resumeDataList.filter(item => item.id !== id);
-      localStorage.setItem('live_portfolio_resume_data', JSON.stringify(resumeDataList));
-      renderCustomData();
-    }
+    let customResumeData = JSON.parse(localStorage.getItem('live_portfolio_custom_data')) || [];
 
     function renderCustomData() {
       const display = document.getElementById('dynamicDataDisplay');
       if (!display) return;
       display.innerHTML = '';
 
-      if (resumeDataList.length === 0) {
-        display.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; font-style:italic;">No extra entries added yet.</p>`;
+      if (customResumeData.length === 0) {
+        display.innerHTML = '<p style="color:var(--text-muted); font-size:0.88rem; font-style:italic;">No custom information added yet.</p>';
         return;
       }
 
-      resumeDataList.forEach(item => {
-        const box = document.createElement('div');
-        box.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; position: relative;";
+      customResumeData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'glass-card';
+        card.style.padding = '1rem';
+        card.style.marginBottom = '0.8rem';
         
-        box.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--primary); text-transform:uppercase;">${item.category}</span>
-            ${item.date ? `<span style="font-size:0.75rem; color:var(--text-muted);">${item.date}</span>` : ''}
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <span class="badge-live" style="background:rgba(56,189,248,0.15); color:var(--primary); border-color:var(--primary-glow);">${item.category}</span>
+              <h4 style="color:#fff; font-size:1rem; margin-top:0.4rem;">${item.title}</h4>
+              ${item.date ? `<span style="font-size:0.75rem; color:var(--text-muted);">${item.date}</span>` : ''}
+              <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.4rem; line-height:1.4;">${item.details}</p>
+            </div>
+            ${isAdminUnlocked ? `<button onclick="deleteCustomData(${index})" style="background:none; border:none; color:var(--red); cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
           </div>
-          <h4 style="color:#fff; font-size:1rem; margin-bottom:0.3rem;">${item.title}</h4>
-          <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.5;">${item.details}</p>
-          ${isAdminUnlocked ? `<button onclick="deleteCustomData(${item.id})" style="position:absolute; top:0.8rem; right:0.8rem; background:transparent; border:none; color:var(--red); cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
         `;
-        display.appendChild(box);
+        display.appendChild(card);
       });
     }
 
-    renderCalendar();
+    function handleAddData(e) {
+      e.preventDefault();
+      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
+
+      const category = document.getElementById('infoCategory').value;
+      const title = document.getElementById('infoTitle').value;
+      const date = document.getElementById('infoDate').value;
+      const details = document.getElementById('infoDetails').value;
+
+      customResumeData.push({ category, title, date, details });
+      localStorage.setItem('live_portfolio_custom_data', JSON.stringify(customResumeData));
+      
+      document.getElementById('customDataForm').reset();
+      renderCustomData();
+    }
+
+    function deleteCustomData(index) {
+      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
+      customResumeData.splice(index, 1);
+      localStorage.setItem('live_portfolio_custom_data', JSON.stringify(customResumeData));
+      renderCustomData();
+    }
+
+    // Initializations
     updateLockUI();
+    renderCalendar();
+    renderCustomData();
   </script>
 </body>
 </html>
