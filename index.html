@@ -204,7 +204,7 @@
       display: flex; align-items: center; gap: 0.8rem;
       padding: 0.75rem 1rem; color: var(--text-muted);
       text-decoration: none; font-size: 0.88rem; font-weight: 600;
-      border-radius: 12px; transition: all 0.25s ease;
+      border-radius: 12px; transition: all 0.25s ease; cursor: pointer;
     }
 
     .nav-item i { font-size: 1rem; width: 20px; text-align: center; }
@@ -236,12 +236,68 @@
     }
 
     .container { max-width: 1180px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; }
+
+    /* Presentation Slide System */
+    .slide-navigation-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-highlight);
+      border-radius: 20px;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .slide-tabs { display: flex; gap: 0.8rem; }
+    .slide-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .slide-tab-btn:hover {
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .slide-tab-btn.active {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(192, 132, 252, 0.2));
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .slide-controls { display: flex; gap: 0.5rem; }
+
+    .slide-pane {
+      display: none;
+      animation: fadeInSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     
     section { 
-      margin-bottom: 4rem; opacity: 0; transform: translateY(30px); 
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); 
+      margin-bottom: 3.5rem; opacity: 1; transform: translateY(0); 
     }
-    section.visible { opacity: 1; transform: translateY(0); }
 
     .section-header { margin-bottom: 1.8rem; }
     .section-tag {
@@ -265,7 +321,7 @@
     .hero-banner {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8));
       border: 1px solid var(--border-highlight); border-radius: 24px; padding: 2.5rem;
-      margin-bottom: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56, 189, 248, 0.15);
+      margin-bottom: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(56, 189, 248, 0.15);
       display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: center;
     }
 
@@ -486,6 +542,7 @@
       .split-grid { grid-template-columns: 1fr; }
       .calendar-day-cell { min-height: 80px; padding: 0.3rem; }
       .hero-title { font-size: 2.5rem; }
+      .slide-navigation-bar { flex-direction: column; gap: 1rem; }
     }
   </style>
 </head>
@@ -516,15 +573,15 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#about-website" class="nav-item active"><i class="fa-solid fa-house-laptop"></i> Overview</a>
-        <a href="#about" class="nav-item"><i class="fa-solid fa-user"></i> About Me</a>
-        <a href="#education" class="nav-item"><i class="fa-solid fa-graduation-cap"></i> Education & Honors</a>
-        <a href="#skills" class="nav-item"><i class="fa-solid fa-brain"></i> Core Skills</a>
-        <a href="#experience" class="nav-item"><i class="fa-solid fa-briefcase"></i> Experience & Roles</a>
-        <a href="#certifications" class="nav-item"><i class="fa-solid fa-certificate"></i> Credentials & Projects</a>
-        <a href="#sample-works" class="nav-item"><i class="fa-solid fa-folder-open"></i> Sample Works</a>
-        <a href="#schedule-events" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Schedule & Calendar</a>
-        <a href="#custom-data" class="nav-item"><i class="fa-solid fa-circle-plus"></i> Add Info</a>
+        <a onclick="switchSlide(1)" class="nav-item active" id="navSlide1"><i class="fa-solid fa-house-laptop"></i> Overview & Welcome</a>
+        <a onclick="switchSlide(2); scrollToSection('about')" class="nav-item" id="navAbout"><i class="fa-solid fa-user"></i> About Me</a>
+        <a onclick="switchSlide(2); scrollToSection('education')" class="nav-item"><i class="fa-solid fa-graduation-cap"></i> Education & Honors</a>
+        <a onclick="switchSlide(2); scrollToSection('skills')" class="nav-item"><i class="fa-solid fa-brain"></i> Core Skills</a>
+        <a onclick="switchSlide(2); scrollToSection('experience')" class="nav-item"><i class="fa-solid fa-briefcase"></i> Experience & Roles</a>
+        <a onclick="switchSlide(2); scrollToSection('certifications')" class="nav-item"><i class="fa-solid fa-certificate"></i> Credentials & Projects</a>
+        <a onclick="switchSlide(2); scrollToSection('sample-works')" class="nav-item"><i class="fa-solid fa-folder-open"></i> Sample Works</a>
+        <a onclick="switchSlide(2); scrollToSection('schedule-events')" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Schedule & Calendar</a>
+        <a onclick="switchSlide(2); scrollToSection('custom-data')" class="nav-item"><i class="fa-solid fa-circle-plus"></i> Add Info</a>
       </nav>
     </div>
 
@@ -543,554 +600,82 @@
   <div class="main-wrapper" id="mainWrapper">
     <div class="container">
 
-      <section id="about" class="hero-banner visible">
-        <div>
-          <div class="section-tag"><i class="fa-solid fa-sparkles"></i> General Academic Strand & BSTCM</div>
-          <h1 class="hero-title">Johnrey M. Amper</h1>
-          <div class="hero-subtitle">
-            <i class="fa-solid fa-graduation-cap"></i> Technology Communication Management Student
-          </div>
-          <p class="hero-desc">
-            Recent Senior High School graduate under the General Academic Strand (GAS) from Candabong National High School, and currently a Second-year Bachelor of Science in Technology Communication Management (BSTCM) student at the University of Science and Technology of Southern Philippines, eager to develop skills in communication and technology. Seeking opportunities where I can apply strong leadership experience and communication abilities, while gaining practical exposure and growing professionally.
-          </p>
-          <div class="hero-contact-pills">
-            <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Cagayan de Oro City</div>
-            <div class="pill"><i class="fa-solid fa-envelope" style="color:var(--purple);"></i> johnreyamper4@gmail.com</div>
-            <div class="pill"><i class="fa-solid fa-building-columns" style="color:var(--accent);"></i> USTP Second Year</div>
-          </div>
+      <!-- Slide Navigation Hub Bar -->
+      <div class="slide-navigation-bar">
+        <div class="slide-tabs">
+          <button class="slide-tab-btn active" id="tabBtn1" onclick="switchSlide(1)">
+            <i class="fa-solid fa-compass"></i> Welcome & Availability
+          </button>
+          <button class="slide-tab-btn" id="tabBtn2" onclick="switchSlide(2)">
+            <i class="fa-solid fa-address-card"></i> Full Academic Profile & Resume
+          </button>
         </div>
+        <div class="slide-controls">
+          <button class="btn-nav" onclick="navigateSlide(-1)" title="Previous View"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="btn-nav" onclick="navigateSlide(1)" title="Next View"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
 
-        <div class="counter-box">
-          <div class="counter-badge"><span class="pulse-dot"></span> Real-Time Analytics</div>
-          <i class="fa-solid fa-chart-line fa-2x" style="color: var(--primary); margin-top: 0.5rem;"></i>
-          <div class="view-count" id="liveViewCount">1</div>
-          <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Total Portfolio Views</p>
-          <p style="color: rgba(255,255,255,0.4); font-size: 0.72rem; margin-top: 0.3rem;">Updates upon visitor interaction</p>
-        </div>
-      </section>
-
-      <section id="about-website">
-        <div class="section-header">
-          <span class="section-tag">Overview & Purpose</span>
-          <h2 class="section-title">About This Website</h2>
-        </div>
-        <div class="glass-card">
-          <p style="color: var(--text-main); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.2rem;">
-            Welcome! This platform serves as an interactive digital portfolio and academic resume designed to present my academic background, leadership experience, project involvement, technical skills, and key achievements.
-          </p>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem;">
-            It features a dynamic schedule and integrated planning calendar detailing my academic commitments, leadership duties, and organizational engagements in real time.
-          </p>
-          <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid var(--primary); padding: 0.8rem 1.2rem; border-radius: 8px;">
-            <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">
-              <i class="fa-solid fa-envelope" style="margin-right: 0.4rem;"></i> For inquiries, collaborations, or professional opportunities, feel free to reach out via the provided contact information.
+      <!-- FIRST SLIDE: OVERVIEW, WELCOME & AVAILABILITY -->
+      <div class="slide-pane active" id="slidePane1">
+        
+        <section id="welcome-hero" class="hero-banner">
+          <div>
+            <div class="section-tag"><i class="fa-solid fa-sparkles"></i> Welcome to My Interactive Portfolio</div>
+            <h1 class="hero-title">Johnrey M. Amper</h1>
+            <div class="hero-subtitle">
+              <i class="fa-solid fa-graduation-cap"></i> Technology Communication Management Student
+            </div>
+            <p class="hero-desc">
+              Welcome! This platform serves as a personalized digital showcase and academic resume presenting my background, leadership roles, technical capabilities, and key achievements. Explore my complete schedule, project experience, and interactive calendar below.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="education">
-        <div class="section-header">
-          <span class="section-tag">Academic Background & Honors</span>
-          <h2 class="section-title">Education & Award List</h2>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-            <div>
-              <h3 style="font-size:1.3rem; color:#fff;">Bachelor of Science in Technology Communication Management (BSTCM)</h3>
-              <p style="color:var(--primary); font-weight:600;">University of Science and Technology of Southern Philippines</p>
-            </div>
-            <span class="pill" style="border-color:var(--primary-glow); background:rgba(56,189,248,0.1);">
-              <span class="badge-live">Current</span> Second-Year Student
-            </span>
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem;">
-            <div>
-              <h3 style="font-size:1.3rem; color:#fff;">General Academic Strand (GAS) — Senior High School</h3>
-              <p style="color:var(--primary); font-weight:600;">Candabong National High School - Anda, Bohol</p>
-            </div>
-            <span class="pill">Graduated 2025</span>
-          </div>
-
-          <h4 style="color:#fff; font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
-            <i class="fa-solid fa-trophy" style="color:var(--accent);"></i> Honors, Awards & Recognitions List
-          </h4>
-
-          <div class="award-filter-bar">
-            <button class="filter-btn active" onclick="filterAwards('all', this)">All Awards</button>
-            <button class="filter-btn" onclick="filterAwards('top', this)">Top Honors & 1st Places</button>
-            <button class="filter-btn" onclick="filterAwards('leadership', this)">Leadership & Governance</button>
-            <button class="filter-btn" onclick="filterAwards('journalism', this)">Journalism & Arts</button>
-            <button class="filter-btn" onclick="filterAwards('competitions', this)">Competitions & Placements</button>
-          </div>
-
-          <div class="awards-grid" id="awardsContainer">
-            <div class="award-card rank-first" data-category="top competitions">
-              <div class="award-info">
-                <i class="fa-solid fa-trophy fa-lg"></i>
-                <div>
-                  <span class="award-title">1st Place, TUKLAS - Life Science Category</span>
-                  <span class="award-meta">District Level (2024)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-first" data-category="top journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-award fa-lg"></i>
-                <div>
-                  <span class="award-title">Unang Gantimpala, Pinakamagaling na Grupo</span>
-                  <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-first" data-category="top journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-medal fa-lg"></i>
-                <div>
-                  <span class="award-title">Unang Gantimpala, Pinakamagaling sa Pagganap</span>
-                  <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-outstanding" data-category="leadership">
-              <div class="award-info">
-                <i class="fa-solid fa-crown fa-lg"></i>
-                <div>
-                  <span class="award-title">Outstanding Supreme Secondary Learner Government President</span>
-                  <span class="award-meta">CNHS Leadership Excellence</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-outstanding" data-category="top journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-star fa-lg"></i>
-                <div>
-                  <span class="award-title">Outstanding Performance in Communication Arts</span>
-                  <span class="award-meta">English Discipline</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-outstanding" data-category="top academic">
-              <div class="award-info">
-                <i class="fa-solid fa-flask fa-lg"></i>
-                <div>
-                  <span class="award-title">Outstanding in Research Awardee</span>
-                  <span class="award-meta">Academic Excellence</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-service" data-category="leadership">
-              <div class="award-info">
-                <i class="fa-solid fa-building-flag fa-lg"></i>
-                <div>
-                  <span class="award-title">Senate of the Philippines Leadership Excellence Awardee</span>
-                  <span class="award-meta">National Governance Recognition</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-service" data-category="leadership">
-              <div class="award-info">
-                <i class="fa-solid fa-shield-halved fa-lg"></i>
-                <div>
-                  <span class="award-title">Governor Aumentado Leadership Excellence Awardee</span>
-                  <span class="award-meta">Provincial Leadership Award</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-service" data-category="leadership">
-              <div class="award-info">
-                <i class="fa-solid fa-user-shield fa-lg"></i>
-                <div>
-                  <span class="award-title">Congresswoman Alexie Tutor Leadership Awardee</span>
-                  <span class="award-meta">Congressional Distinction</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-runnerup" data-category="competitions">
-              <div class="award-info">
-                <i class="fa-solid fa-ranking-star fa-lg"></i>
-                <div>
-                  <span class="award-title">4th Place, Sandugo de Kuradang Group Competition</span>
-                  <span class="award-meta">Cultural Competition (2024)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-runnerup" data-category="competitions">
-              <div class="award-info">
-                <i class="fa-solid fa-microscope fa-lg"></i>
-                <div>
-                  <span class="award-title">6th Place, TUKLAS - Life Science Category</span>
-                  <span class="award-meta">Congressional Level (2024)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-runnerup" data-category="competitions journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-rectangle-ad fa-lg"></i>
-                <div>
-                  <span class="award-title">Best in Marketing Promotion (TV Ads Category)</span>
-                  <span class="award-meta">Food Exposition (2024)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-runnerup" data-category="journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-radio fa-lg"></i>
-                <div>
-                  <span class="award-title">Pinakamagaling na Pangkat ng Mamamahayag</span>
-                  <span class="award-meta">Radio Broadcasting (2023)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-runnerup" data-category="journalism">
-              <div class="award-info">
-                <i class="fa-solid fa-microphone fa-lg"></i>
-                <div>
-                  <span class="award-title">Pinakamagaling na Mamahayag (Filipino)</span>
-                  <span class="award-meta">Radio Broadcasting (2023)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-service" data-category="academic">
-              <div class="award-info">
-                <i class="fa-solid fa-graduation-cap fa-lg"></i>
-                <div>
-                  <span class="award-title">Consistent Honor Student</span>
-                  <span class="award-meta">Academic Excellence</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="award-card rank-service" data-category="academic">
-              <div class="award-info">
-                <i class="fa-solid fa-hand-holding-heart fa-lg"></i>
-                <div>
-                  <span class="award-title">Consistent Service & Conduct Awardee</span>
-                  <span class="award-meta">Organizational Service</span>
-                </div>
-              </div>
+            <div class="hero-contact-pills">
+              <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Cagayan de Oro City</div>
+              <div class="pill"><i class="fa-solid fa-envelope" style="color:var(--purple);"></i> johnreyamper4@gmail.com</div>
+              <div class="pill"><i class="fa-solid fa-building-columns" style="color:var(--accent);"></i> USTP Second Year</div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="skills">
-        <div class="section-header">
-          <span class="section-tag">Core Competencies</span>
-          <h2 class="section-title">Skills & Languages</h2>
-        </div>
+          <div class="counter-box">
+            <div class="counter-badge"><span class="pulse-dot"></span> Real-Time Analytics</div>
+            <i class="fa-solid fa-chart-line fa-2x" style="color: var(--primary); margin-top: 0.5rem;"></i>
+            <div class="view-count" id="liveViewCount1">1</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Total Portfolio Views</p>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.72rem; margin-top: 0.3rem;">Updates upon visitor interaction</p>
+          </div>
+        </section>
 
-        <div class="skills-wrapper">
+        <section id="about-website-slide1">
+          <div class="section-header">
+            <span class="section-tag">Overview & Purpose</span>
+            <h2 class="section-title">About This Digital Showcase</h2>
+          </div>
           <div class="glass-card">
-            <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-laptop-code" style="color:var(--primary);"></i> Technical Proficiency</h3>
-            <div class="skill-tags">
-              <span class="tag"><i class="fa-solid fa-palette"></i> Canva</span>
-              <span class="tag"><i class="fa-solid fa-file-word"></i> Microsoft Word</span>
-              <span class="tag"><i class="fa-solid fa-file-powerpoint"></i> Microsoft PowerPoint</span>
-              <span class="tag"><i class="fa-solid fa-file-excel"></i> Microsoft Excel</span>
-              <span class="tag"><i class="fa-solid fa-cube"></i> Minecraft Development</span>
-            </div>
-          </div>
-
-          <div class="glass-card">
-            <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-brain" style="color:var(--purple);"></i> Soft Skills</h3>
-            <div class="skill-tags">
-              <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-users"></i> Leadership</span>
-              <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-comments"></i> Communication</span>
-              <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-sliders"></i> Adaptability</span>
-              <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-magnifying-glass"></i> Detail-Oriented</span>
-              <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-lightbulb"></i> Problem-Solving</span>
-            </div>
-          </div>
-
-          <div class="glass-card">
-            <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-language" style="color:var(--green);"></i> Languages</h3>
-            <div class="skill-tags">
-              <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-globe"></i> English</span>
-              <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comments"></i> Filipino</span>
-              <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comment-dots"></i> Bisaya</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience">
-        <div class="section-header">
-          <span class="section-tag">Leadership & Governance</span>
-          <h2 class="section-title">Work Experience, Internship & Current Roles</h2>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">President</h3>
-              <p style="color:var(--primary); font-weight:600;">LAYAG '26</p>
-            </div>
-            <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
-              <span class="badge-live">Current Role</span> 2026 – Present
-            </span>
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Vice President for External Affairs</h3>
-              <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
-              <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
-            </div>
-            <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
-              <span class="badge-live">Current Role</span> 2026 – Present
-            </span>
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Head of Unit on Extracurricular Affairs</h3>
-              <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
-              <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
-            </div>
-            <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
-              <span class="badge-live">Current Role</span> 2026 – Present
-            </span>
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Student-Adviser</h3>
-              <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
-            </div>
-            <span class="pill">2024 – 2025</span>
-          </div>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li>Provided guidance and support to new student leaders of the organization.</li>
-            <li>Assisted in mentoring student officers in implementing and improving organizational activities.</li>
-          </ul>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Layout Artist</h3>
-              <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
-            </div>
-            <span class="pill">2024 – 2025</span>
-          </div>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li>Designed layouts for articles, features, and publication materials.</li>
-            <li>Ensured visual consistency and readability of school publication outputs.</li>
-          </ul>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">President</h3>
-              <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
-            </div>
-            <span class="pill">2023 – 2024</span>
-          </div>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li>Led student government initiatives and represented the student body.</li>
-            <li>Organized and supervised student activities, events, and leadership programs.</li>
-          </ul>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Board Member</h3>
-              <p style="color:var(--primary); font-weight:600;">Anda District Federation of the Supreme Secondary Learner Government (SSLG)</p>
-            </div>
-            <span class="pill">2023 – 2024</span>
-          </div>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li>Participated in federation-level meetings and planning of inter-school activities.</li>
-            <li>Contributed to leadership discussions and student governance initiatives.</li>
-          </ul>
-        </div>
-
-        <div class="glass-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-            <div>
-              <h3 style="font-size:1.2rem; color:#fff;">Associate Editor</h3>
-              <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
-            </div>
-            <span class="pill">2023 – 2024</span>
-          </div>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li>Assisted in editing articles and ensuring content quality for school publication.</li>
-            <li>Collaborated with writers and editorial team on publication projects.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="certifications">
-        <div class="section-header">
-          <span class="section-tag">Credentials & Growth</span>
-          <h2 class="section-title">Projects, Certifications & References</h2>
-        </div>
-
-        <div class="glass-card">
-          <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-diagram-project" style="color:var(--primary);"></i> Key Projects & Leadership Activities</h3>
-          <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
-            <li style="margin-bottom:0.5rem;"><strong>2nd LAYAGLAYA 2026 Film Festival:</strong> Served as Project Head managing festival leadership, logistics, and production.</li>
-            <li style="margin-bottom:0.5rem;"><strong>LAYAGHAM 2026 Research Symposium:</strong> Served as Student-Panel Representative & Proponent facilitating academic discussions and student research proposals.</li>
-            <li style="margin-bottom:0.5rem;"><strong>TECHNOVATIONS "Through History and Herstory" Minecraft Simulation:</strong> Served as Lead Developer designing virtual educational environments and historical simulation mechanics.</li>
-            <li style="margin-bottom:0.5rem;"><strong>Bohol Youth Convergence (BYC) 2023:</strong> Participated as a student leader in a provincial youth leadership convergence in Bohol.</li>
-            <li><strong>Division Schools Press Conference (DSPC) 2023–2024:</strong> Participated in division-level journalism competition representing official school publication.</li>
-          </ul>
-        </div>
-
-        <div class="glass-card">
-          <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-certificate" style="color:var(--purple);"></i> Certifications & Trainings</h3>
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:0.8rem;">
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> District Leadership Training (District Youth Formation 2024)</div>
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Campus Journalism Workshop (DepEd Anda District 2024)</div>
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Work Immersion (Human Resource Management Office of Anda 2024)</div>
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> No Gaps: Resolve and Connect Through Communication (USTP 2025)</div>
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Fundamentals of Journalism (NBCU Academy 2025)</div>
-            <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Introduction to Digital Journalism (Reuters 2025)</div>
-          </div>
-        </div>
-
-        <div class="glass-card">
-          <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.4rem;"><i class="fa-solid fa-user-check" style="color:var(--accent);"></i> References</h3>
-          <p style="color:var(--text-muted); font-size:0.95rem;">Available upon request.</p>
-        </div>
-      </section>
-
-      <section id="sample-works">
-        <div class="section-header">
-          <span class="section-tag">Portfolio & Showcase</span>
-          <h2 class="section-title">Sample Works</h2>
-        </div>
-
-        <div class="glass-card sample-works-box">
-          <i class="fa-solid fa-folder-open fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
-          <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 0.5rem;">Sample Works Showcase</h3>
-          <p style="color: var(--text-muted); font-size: 1rem;">Information will be uploaded soon.</p>
-        </div>
-      </section>
-
-      <section id="schedule-events">
-        <div class="section-header">
-          <span class="section-tag">Academic & Planning Hub</span>
-          <h2 class="section-title">Class Schedule & Dynamic Calendar</h2>
-        </div>
-
-        <div class="schedule-events-container">
-          <div class="glass-card">
-            <h3 style="font-size:1.3rem; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.6rem;">
-              <i class="fa-solid fa-clock" style="color:var(--primary);"></i> Weekly Academic Timetable
-            </h3>
-            <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
-              <i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Restricted View: Displaying subject titles and corresponding times only for privacy and security purposes.
+            <p style="color: var(--text-main); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.2rem;">
+              Welcome! This platform serves as an interactive digital portfolio and academic resume designed to present my academic background, leadership experience, project involvement, technical skills, and key achievements.
             </p>
-
-            <div class="schedule-table-wrapper">
-              <table class="schedule-table">
-                <thead>
-                  <tr>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="schedule-item">
-                        <span class="subject">Learning Academic & Professional English Language</span>
-                        <span class="time">1:00 PM - 4:00 PM</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="schedule-item" style="margin-bottom: 0.8rem;">
-                        <span class="subject">Personnel Management</span>
-                        <span class="time">10:00 AM - 11:30 AM</span>
-                      </div>
-                      <div class="schedule-item" style="margin-bottom: 0.8rem;">
-                        <span class="subject">The Contemporary World</span>
-                        <span class="time">1:00 PM - 2:30 PM</span>
-                      </div>
-                      <div class="schedule-item">
-                        <span class="subject">Foreign Language 2</span>
-                        <span class="time">5:30 PM - 7:00 PM</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="schedule-item">
-                        <span class="subject">Physical Activity Towards Health & Fitness 1</span>
-                        <span class="time">3:00 PM - 5:00 PM</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="schedule-item" style="margin-bottom: 0.8rem;">
-                        <span class="subject">Learning Academic & Professional English Language</span>
-                        <span class="time">12:30 PM - 2:30 PM</span>
-                      </div>
-                      <div class="schedule-item">
-                        <span class="subject">Human Computer Interface</span>
-                        <span class="time">5:00 PM - 7:00 PM</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="schedule-item" style="margin-bottom: 0.8rem;">
-                        <span class="subject">Personnel Management</span>
-                        <span class="time">10:00 AM - 11:30 AM</span>
-                      </div>
-                      <div class="schedule-item" style="margin-bottom: 0.8rem;">
-                        <span class="subject">The Contemporary World</span>
-                        <span class="time">1:00 PM - 2:30 PM</span>
-                      </div>
-                      <div class="schedule-item">
-                        <span class="subject">Foreign Language 2</span>
-                        <span class="time">5:30 PM - 7:00 PM</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="schedule-item">
-                        <span class="subject">Human Computer Interface</span>
-                        <span class="time">10:00 AM - 1:00 PM</span>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.2rem;">
+              It features a dynamic schedule and integrated planning calendar detailing my academic commitments, leadership duties, and organizational engagements in real time.
+            </p>
+            <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid var(--primary); padding: 0.8rem 1.2rem; border-radius: 8px;">
+              <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">
+                <i class="fa-solid fa-envelope" style="margin-right: 0.4rem;"></i> For inquiries, collaborations, or professional opportunities, feel free to reach out via the provided contact information.
+              </p>
             </div>
+          </div>
+        </section>
+
+        <section id="quick-availability">
+          <div class="section-header">
+            <span class="section-tag">Real-Time Schedule & Calendar</span>
+            <h2 class="section-title">Availability Overview</h2>
           </div>
 
           <div class="calendar-card">
             <div class="calendar-header">
               <div class="calendar-title-wrap">
                 <button class="btn-nav" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                <h3 class="calendar-month-title" id="monthYearTitle">August 2026</h3>
+                <h3 class="calendar-month-title" id="monthYearTitle1">August 2026</h3>
                 <button class="btn-nav" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
               </div>
 
@@ -1104,58 +689,611 @@
             </div>
 
             <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.2rem;">
-              <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Calendar cross-references daily class schedules automatically. Click any date cell to view complete availability or edit schedule items.
+              <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Cross-referencing current schedule commitments. Click any date cell to view complete availability or edit calendar events.
             </p>
 
-            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="calendar-grid" id="calendarGrid1"></div>
           </div>
-        </div>
-      </section>
 
-      <section id="custom-data">
-        <div class="section-header">
-          <span class="section-tag">Resume & Custom Data Entry</span>
-          <h2 class="section-title">Add Extra Resume Information</h2>
-        </div>
+          <div style="text-align: center; margin-top: 2rem;">
+            <button class="btn-action btn-primary" onclick="switchSlide(2)" style="padding: 1rem 2rem; font-size: 1rem;">
+              Proceed to Full Profile & Academic Resume <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+            </button>
+          </div>
+        </section>
 
-        <div class="split-grid">
+      </div>
+
+      <!-- SECOND SLIDE: FULL PROFILE & DETAILED ACADEMIC RESUME -->
+      <div class="slide-pane" id="slidePane2">
+
+        <section id="about">
+          <div class="section-header">
+            <span class="section-tag">General Academic Strand & BSTCM</span>
+            <h2 class="section-title">About Me</h2>
+          </div>
           <div class="glass-card">
-            <h3 style="color:#fff; font-size:1.2rem; margin-bottom:1rem;"><i class="fa-solid fa-plus-circle" style="color:var(--primary);"></i> Entry Form</h3>
-            
-            <div id="formLockNotice" class="lock-notice">
-              <i class="fa-solid fa-lock"></i> Viewer Mode Enabled: Form locked. Click "Viewer Mode" on top nav bar to unlock editing.
+            <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.8rem;">Johnrey M. Amper</h3>
+            <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; margin-bottom: 1.2rem;">
+              Recent Senior High School graduate under the General Academic Strand (GAS) from Candabong National High School, and currently a Second-year Bachelor of Science in Technology Communication Management (BSTCM) student at the University of Science and Technology of Southern Philippines, eager to develop skills in communication and technology. Seeking opportunities where I can apply strong leadership experience and communication abilities, while gaining practical exposure and growing professionally.
+            </p>
+            <div class="hero-contact-pills">
+              <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Cagayan de Oro City</div>
+              <div class="pill"><i class="fa-solid fa-envelope" style="color:var(--purple);"></i> johnreyamper4@gmail.com</div>
+              <div class="pill"><i class="fa-solid fa-building-columns" style="color:var(--accent);"></i> USTP Second Year</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="education">
+          <div class="section-header">
+            <span class="section-tag">Academic Background & Honors</span>
+            <h2 class="section-title">Education & Award List</h2>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <h3 style="font-size:1.3rem; color:#fff;">Bachelor of Science in Technology Communication Management (BSTCM)</h3>
+                <p style="color:var(--primary); font-weight:600;">University of Science and Technology of Southern Philippines</p>
+              </div>
+              <span class="pill" style="border-color:var(--primary-glow); background:rgba(56,189,248,0.1);">
+                <span class="badge-live">Current</span> Second-Year Student
+              </span>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem;">
+              <div>
+                <h3 style="font-size:1.3rem; color:#fff;">General Academic Strand (GAS) — Senior High School</h3>
+                <p style="color:var(--primary); font-weight:600;">Candabong National High School - Anda, Bohol</p>
+              </div>
+              <span class="pill">Graduated 2025</span>
             </div>
 
-            <form id="customDataForm" onsubmit="handleAddData(event)">
-              <div class="form-group">
-                <label>Section / Category Title</label>
-                <input type="text" id="infoCategory" placeholder="e.g. Technical Project, Soft Skill, Certificate" required>
+            <h4 style="color:#fff; font-size:1.1rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+              <i class="fa-solid fa-trophy" style="color:var(--accent);"></i> Honors, Awards & Recognitions List
+            </h4>
+
+            <div class="award-filter-bar">
+              <button class="filter-btn active" onclick="filterAwards('all', this)">All Awards</button>
+              <button class="filter-btn" onclick="filterAwards('top', this)">Top Honors & 1st Places</button>
+              <button class="filter-btn" onclick="filterAwards('leadership', this)">Leadership & Governance</button>
+              <button class="filter-btn" onclick="filterAwards('journalism', this)">Journalism & Arts</button>
+              <button class="filter-btn" onclick="filterAwards('competitions', this)">Competitions & Placements</button>
+            </div>
+
+            <div class="awards-grid" id="awardsContainer">
+              <div class="award-card rank-first" data-category="top competitions">
+                <div class="award-info">
+                  <i class="fa-solid fa-trophy fa-lg"></i>
+                  <div>
+                    <span class="award-title">1st Place, TUKLAS - Life Science Category</span>
+                    <span class="award-meta">District Level (2024)</span>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Title / Header</label>
-                <input type="text" id="infoTitle" placeholder="e.g. Lead Designer / Project Name" required>
+
+              <div class="award-card rank-first" data-category="top journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-award fa-lg"></i>
+                  <div>
+                    <span class="award-title">Unang Gantimpala, Pinakamagaling na Grupo</span>
+                    <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Date or Timeline (Optional)</label>
-                <input type="text" id="infoDate" placeholder="e.g. 2026 - Present">
+
+              <div class="award-card rank-first" data-category="top journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-medal fa-lg"></i>
+                  <div>
+                    <span class="award-title">Unang Gantimpala, Pinakamagaling sa Pagganap</span>
+                    <span class="award-meta">Interpretatibong Pagbasa (2023)</span>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Description / Details</label>
-                <textarea id="infoDetails" rows="4" placeholder="Enter key responsibilities, bullet points, or overview..." required></textarea>
+
+              <div class="award-card rank-outstanding" data-category="leadership">
+                <div class="award-info">
+                  <i class="fa-solid fa-crown fa-lg"></i>
+                  <div>
+                    <span class="award-title">Outstanding Supreme Secondary Learner Government President</span>
+                    <span class="award-meta">CNHS Leadership Excellence</span>
+                  </div>
+                </div>
               </div>
-              <button type="submit" id="submitResumeBtn" class="btn-action btn-primary" style="width:100%; justify-content:center;">
-                <i class="fa-solid fa-floppy-disk"></i> Add Information
-              </button>
-            </form>
+
+              <div class="award-card rank-outstanding" data-category="top journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-star fa-lg"></i>
+                  <div>
+                    <span class="award-title">Outstanding Performance in Communication Arts</span>
+                    <span class="award-meta">English Discipline</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-outstanding" data-category="top academic">
+                <div class="award-info">
+                  <i class="fa-solid fa-flask fa-lg"></i>
+                  <div>
+                    <span class="award-title">Outstanding in Research Awardee</span>
+                    <span class="award-meta">Academic Excellence</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-service" data-category="leadership">
+                <div class="award-info">
+                  <i class="fa-solid fa-building-flag fa-lg"></i>
+                  <div>
+                    <span class="award-title">Senate of the Philippines Leadership Excellence Awardee</span>
+                    <span class="award-meta">National Governance Recognition</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-service" data-category="leadership">
+                <div class="award-info">
+                  <i class="fa-solid fa-shield-halved fa-lg"></i>
+                  <div>
+                    <span class="award-title">Governor Aumentado Leadership Excellence Awardee</span>
+                    <span class="award-meta">Provincial Leadership Award</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-service" data-category="leadership">
+                <div class="award-info">
+                  <i class="fa-solid fa-user-shield fa-lg"></i>
+                  <div>
+                    <span class="award-title">Congresswoman Alexie Tutor Leadership Awardee</span>
+                    <span class="award-meta">Congressional Distinction</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-runnerup" data-category="competitions">
+                <div class="award-info">
+                  <i class="fa-solid fa-ranking-star fa-lg"></i>
+                  <div>
+                    <span class="award-title">4th Place, Sandugo de Kuradang Group Competition</span>
+                    <span class="award-meta">Cultural Competition (2024)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-runnerup" data-category="competitions">
+                <div class="award-info">
+                  <i class="fa-solid fa-microscope fa-lg"></i>
+                  <div>
+                    <span class="award-title">6th Place, TUKLAS - Life Science Category</span>
+                    <span class="award-meta">Congressional Level (2024)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-runnerup" data-category="competitions journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-rectangle-ad fa-lg"></i>
+                  <div>
+                    <span class="award-title">Best in Marketing Promotion (TV Ads Category)</span>
+                    <span class="award-meta">Food Exposition (2024)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-runnerup" data-category="journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-radio fa-lg"></i>
+                  <div>
+                    <span class="award-title">Pinakamagaling na Pangkat ng Mamamahayag</span>
+                    <span class="award-meta">Radio Broadcasting (2023)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-runnerup" data-category="journalism">
+                <div class="award-info">
+                  <i class="fa-solid fa-microphone fa-lg"></i>
+                  <div>
+                    <span class="award-title">Pinakamagaling na Mamahayag (Filipino)</span>
+                    <span class="award-meta">Radio Broadcasting (2023)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-service" data-category="academic">
+                <div class="award-info">
+                  <i class="fa-solid fa-graduation-cap fa-lg"></i>
+                  <div>
+                    <span class="award-title">Consistent Honor Student</span>
+                    <span class="award-meta">Academic Excellence</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="award-card rank-service" data-category="academic">
+                <div class="award-info">
+                  <i class="fa-solid fa-hand-holding-heart fa-lg"></i>
+                  <div>
+                    <span class="award-title">Consistent Service & Conduct Awardee</span>
+                    <span class="award-meta">Organizational Service</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="skills">
+          <div class="section-header">
+            <span class="section-tag">Core Competencies</span>
+            <h2 class="section-title">Skills & Languages</h2>
+          </div>
+
+          <div class="skills-wrapper">
+            <div class="glass-card">
+              <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-laptop-code" style="color:var(--primary);"></i> Technical Proficiency</h3>
+              <div class="skill-tags">
+                <span class="tag"><i class="fa-solid fa-palette"></i> Canva</span>
+                <span class="tag"><i class="fa-solid fa-file-word"></i> Microsoft Word</span>
+                <span class="tag"><i class="fa-solid fa-file-powerpoint"></i> Microsoft PowerPoint</span>
+                <span class="tag"><i class="fa-solid fa-file-excel"></i> Microsoft Excel</span>
+                <span class="tag"><i class="fa-solid fa-cube"></i> Minecraft Development</span>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-brain" style="color:var(--purple);"></i> Soft Skills</h3>
+              <div class="skill-tags">
+                <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-users"></i> Leadership</span>
+                <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-comments"></i> Communication</span>
+                <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-sliders"></i> Adaptability</span>
+                <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-magnifying-glass"></i> Detail-Oriented</span>
+                <span class="tag" style="color:var(--purple); border-color:rgba(192, 132, 252, 0.3);"><i class="fa-solid fa-lightbulb"></i> Problem-Solving</span>
+              </div>
+            </div>
+
+            <div class="glass-card">
+              <h3 style="color:#fff; font-size:1.1rem;"><i class="fa-solid fa-language" style="color:var(--green);"></i> Languages</h3>
+              <div class="skill-tags">
+                <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-globe"></i> English</span>
+                <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comments"></i> Filipino</span>
+                <span class="tag" style="color:var(--green); border-color:rgba(74, 222, 128, 0.3);"><i class="fa-solid fa-comment-dots"></i> Bisaya</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience">
+          <div class="section-header">
+            <span class="section-tag">Leadership & Governance</span>
+            <h2 class="section-title">Work Experience, Internship & Current Roles</h2>
           </div>
 
           <div class="glass-card">
-            <h3 style="color:#fff; font-size:1.2rem; margin-bottom:0.4rem;"><i class="fa-solid fa-list-check" style="color:var(--accent);"></i> Added Information</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">Entries added through the form append below in real-time and save locally in your browser.</p>
-            <div id="dynamicDataDisplay" style="max-height: 420px; overflow-y: auto; padding-right: 0.5rem;"></div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">President</h3>
+                <p style="color:var(--primary); font-weight:600;">LAYAG '26</p>
+              </div>
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+                <span class="badge-live">Current Role</span> 2026 – Present
+              </span>
+            </div>
           </div>
-        </div>
-      </section>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Vice President for External Affairs</h3>
+                <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
+                <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
+              </div>
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+                <span class="badge-live">Current Role</span> 2026 – Present
+              </span>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Head of Unit on Extracurricular Affairs</h3>
+                <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
+                <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
+              </div>
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+                <span class="badge-live">Current Role</span> 2026 – Present
+              </span>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Student-Adviser</h3>
+                <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
+              </div>
+              <span class="pill">2024 – 2025</span>
+            </div>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li>Provided guidance and support to new student leaders of the organization.</li>
+              <li>Assisted in mentoring student officers in implementing and improving organizational activities.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Layout Artist</h3>
+                <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
+              </div>
+              <span class="pill">2024 – 2025</span>
+            </div>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li>Designed layouts for articles, features, and publication materials.</li>
+              <li>Ensured visual consistency and readability of school publication outputs.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">President</h3>
+                <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
+              </div>
+              <span class="pill">2023 – 2024</span>
+            </div>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li>Led student government initiatives and represented the student body.</li>
+              <li>Organized and supervised student activities, events, and leadership programs.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Board Member</h3>
+                <p style="color:var(--primary); font-weight:600;">Anda District Federation of the Supreme Secondary Learner Government (SSLG)</p>
+              </div>
+              <span class="pill">2023 – 2024</span>
+            </div>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li>Participated in federation-level meetings and planning of inter-school activities.</li>
+              <li>Contributed to leadership discussions and student governance initiatives.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
+              <div>
+                <h3 style="font-size:1.2rem; color:#fff;">Associate Editor</h3>
+                <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
+              </div>
+              <span class="pill">2023 – 2024</span>
+            </div>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li>Assisted in editing articles and ensuring content quality for school publication.</li>
+              <li>Collaborated with writers and editorial team on publication projects.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="certifications">
+          <div class="section-header">
+            <span class="section-tag">Credentials & Growth</span>
+            <h2 class="section-title">Projects, Certifications & References</h2>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-diagram-project" style="color:var(--primary);"></i> Key Projects & Leadership Activities</h3>
+            <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
+              <li style="margin-bottom:0.5rem;"><strong>2nd LAYAGLAYA 2026 Film Festival:</strong> Served as Project Head managing festival leadership, logistics, and production.</li>
+              <li style="margin-bottom:0.5rem;"><strong>LAYAGHAM 2026 Research Symposium:</strong> Served as Student-Panel Representative & Proponent facilitating academic discussions and student research proposals.</li>
+              <li style="margin-bottom:0.5rem;"><strong>TECHNOVATIONS "Through History and Herstory" Minecraft Simulation:</strong> Served as Lead Developer designing virtual educational environments and historical simulation mechanics.</li>
+              <li style="margin-bottom:0.5rem;"><strong>Bohol Youth Convergence (BYC) 2023:</strong> Participated as a student leader in a provincial youth leadership convergence in Bohol.</li>
+              <li><strong>Division Schools Press Conference (DSPC) 2023–2024:</strong> Participated in division-level journalism competition representing official school publication.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.8rem;"><i class="fa-solid fa-certificate" style="color:var(--purple);"></i> Certifications & Trainings</h3>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:0.8rem;">
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> District Leadership Training (District Youth Formation 2024)</div>
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Campus Journalism Workshop (DepEd Anda District 2024)</div>
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Work Immersion (Human Resource Management Office of Anda 2024)</div>
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> No Gaps: Resolve and Connect Through Communication (USTP 2025)</div>
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Fundamentals of Journalism (NBCU Academy 2025)</div>
+              <div class="pill" style="justify-content:flex-start;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Introduction to Digital Journalism (Reuters 2025)</div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="color:#fff; font-size:1.15rem; margin-bottom:0.4rem;"><i class="fa-solid fa-user-check" style="color:var(--accent);"></i> References</h3>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Available upon request.</p>
+          </div>
+        </section>
+
+        <section id="sample-works">
+          <div class="section-header">
+            <span class="section-tag">Portfolio & Showcase</span>
+            <h2 class="section-title">Sample Works</h2>
+          </div>
+
+          <div class="glass-card sample-works-box">
+            <i class="fa-solid fa-folder-open fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+            <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 0.5rem;">Sample Works Showcase</h3>
+            <p style="color: var(--text-muted); font-size: 1rem;">Information will be uploaded soon.</p>
+          </div>
+        </section>
+
+        <section id="schedule-events">
+          <div class="section-header">
+            <span class="section-tag">Academic & Planning Hub</span>
+            <h2 class="section-title">Class Schedule & Dynamic Calendar</h2>
+          </div>
+
+          <div class="schedule-events-container">
+            <div class="glass-card">
+              <h3 style="font-size:1.3rem; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.6rem;">
+                <i class="fa-solid fa-clock" style="color:var(--primary);"></i> Weekly Academic Timetable
+              </h3>
+              <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
+                <i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Restricted View: Displaying subject titles and corresponding times only for privacy and security purposes.
+              </p>
+
+              <div class="schedule-table-wrapper">
+                <table class="schedule-table">
+                  <thead>
+                    <tr>
+                      <th>Monday</th>
+                      <th>Tuesday</th>
+                      <th>Wednesday</th>
+                      <th>Thursday</th>
+                      <th>Friday</th>
+                      <th>Saturday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="schedule-item">
+                          <span class="subject">Learning Academic & Professional English Language</span>
+                          <span class="time">1:00 PM - 4:00 PM</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                          <span class="subject">Personnel Management</span>
+                          <span class="time">10:00 AM - 11:30 AM</span>
+                        </div>
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                          <span class="subject">The Contemporary World</span>
+                          <span class="time">1:00 PM - 2:30 PM</span>
+                        </div>
+                        <div class="schedule-item">
+                          <span class="subject">Foreign Language 2</span>
+                          <span class="time">5:30 PM - 7:00 PM</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item">
+                          <span class="subject">Physical Activity Towards Health & Fitness 1</span>
+                          <span class="time">3:00 PM - 5:00 PM</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                          <span class="subject">Learning Academic & Professional English Language</span>
+                          <span class="time">12:30 PM - 2:30 PM</span>
+                        </div>
+                        <div class="schedule-item">
+                          <span class="subject">Human Computer Interface</span>
+                          <span class="time">5:00 PM - 7:00 PM</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                          <span class="subject">Personnel Management</span>
+                          <span class="time">10:00 AM - 11:30 AM</span>
+                        </div>
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
+                          <span class="subject">The Contemporary World</span>
+                          <span class="time">1:00 PM - 2:30 PM</span>
+                        </div>
+                        <div class="schedule-item">
+                          <span class="subject">Foreign Language 2</span>
+                          <span class="time">5:30 PM - 7:00 PM</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item">
+                          <span class="subject">Human Computer Interface</span>
+                          <span class="time">10:00 AM - 1:00 PM</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="calendar-card">
+              <div class="calendar-header">
+                <div class="calendar-title-wrap">
+                  <button class="btn-nav" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                  <h3 class="calendar-month-title" id="monthYearTitle2">August 2026</h3>
+                  <button class="btn-nav" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <div class="color-legend">
+                  <div class="legend-item"><span class="color-dot" style="background:#4ade80;"></span> Available</div>
+                  <div class="legend-item"><span class="color-dot" style="background:#f59e0b;"></span> Class / Limited</div>
+                  <div class="legend-item"><span class="color-dot" style="background:#38bdf8;"></span> Academic / Event</div>
+                  <div class="legend-item"><span class="color-dot" style="background:#c084fc;"></span> Leadership Event</div>
+                  <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Postponed / Booked</div>
+                </div>
+              </div>
+
+              <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.2rem;">
+                <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Calendar cross-references daily class schedules automatically. Click any date cell to view complete availability or edit schedule items.
+              </p>
+
+              <div class="calendar-grid" id="calendarGrid2"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="custom-data">
+          <div class="section-header">
+            <span class="section-tag">Resume & Custom Data Entry</span>
+            <h2 class="section-title">Add Extra Resume Information</h2>
+          </div>
+
+          <div class="split-grid">
+            <div class="glass-card">
+              <h3 style="color:#fff; font-size:1.2rem; margin-bottom:1rem;"><i class="fa-solid fa-plus-circle" style="color:var(--primary);"></i> Entry Form</h3>
+              
+              <div id="formLockNotice" class="lock-notice">
+                <i class="fa-solid fa-lock"></i> Viewer Mode Enabled: Form locked. Click "Viewer Mode" on top nav bar to unlock editing.
+              </div>
+
+              <form id="customDataForm" onsubmit="handleAddData(event)">
+                <div class="form-group">
+                  <label>Section / Category Title</label>
+                  <input type="text" id="infoCategory" placeholder="e.g. Technical Project, Soft Skill, Certificate" required>
+                </div>
+                <div class="form-group">
+                  <label>Title / Header</label>
+                  <input type="text" id="infoTitle" placeholder="e.g. Lead Designer / Project Name" required>
+                </div>
+                <div class="form-group">
+                  <label>Date or Timeline (Optional)</label>
+                  <input type="text" id="infoDate" placeholder="e.g. 2026 - Present">
+                </div>
+                <div class="form-group">
+                  <label>Description / Details</label>
+                  <textarea id="infoDetails" rows="4" placeholder="Enter key responsibilities, bullet points, or overview..." required></textarea>
+                </div>
+                <button type="submit" id="submitResumeBtn" class="btn-action btn-primary" style="width:100%; justify-content:center;">
+                  <i class="fa-solid fa-floppy-disk"></i> Add Information
+                </button>
+              </form>
+            </div>
+
+            <div class="glass-card">
+              <h3 style="color:#fff; font-size:1.2rem; margin-bottom:0.4rem;"><i class="fa-solid fa-list-check" style="color:var(--accent);"></i> Added Information</h3>
+              <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">Entries added through the form append below in real-time and save locally in your browser.</p>
+              <div id="dynamicDataDisplay" style="max-height: 420px; overflow-y: auto; padding-right: 0.5rem;"></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
 
       <footer>
         <p>Designed, Developed, & Created by <strong>Johnrey M. Amper</strong> © 2026</p>
@@ -1204,6 +1342,48 @@
   </div>
 
   <script>
+    let activeSlideIndex = 1;
+
+    function switchSlide(index) {
+      activeSlideIndex = index;
+      const pane1 = document.getElementById('slidePane1');
+      const pane2 = document.getElementById('slidePane2');
+      const btn1 = document.getElementById('tabBtn1');
+      const btn2 = document.getElementById('tabBtn2');
+      const nav1 = document.getElementById('navSlide1');
+
+      if (index === 1) {
+        pane1.classList.add('active');
+        pane2.classList.remove('active');
+        btn1.classList.add('active');
+        btn2.classList.remove('active');
+        if (nav1) nav1.classList.add('active');
+      } else {
+        pane2.classList.add('active');
+        pane1.classList.remove('active');
+        btn2.classList.add('active');
+        btn1.classList.remove('active');
+        if (nav1) nav1.classList.remove('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateSlide(dir) {
+      let target = activeSlideIndex + dir;
+      if (target < 1) target = 2;
+      if (target > 2) target = 1;
+      switchSlide(target);
+    }
+
+    function scrollToSection(id) {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+
     function setScreenView(mode) {
       const btnDesktop = document.getElementById('btnDesktopView');
       const btnMobile = document.getElementById('btnMobileView');
@@ -1297,24 +1477,6 @@
     }
     animateBackground();
 
-    const sections = document.querySelectorAll('section');
-    const navItems = document.querySelectorAll('.nav-item');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          const id = entry.target.getAttribute('id');
-          navItems.forEach(item => {
-            if (item.getAttribute('href') === `#${id}`) item.classList.add('active');
-            else item.classList.remove('active');
-          });
-        }
-      });
-    }, { threshold: 0.2 });
-
-    sections.forEach(s => observer.observe(s));
-
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const icon = document.getElementById('menuIcon');
@@ -1325,7 +1487,7 @@
     let viewCount = localStorage.getItem('realtime_portfolio_views') || 124;
     viewCount = parseInt(viewCount) + 1;
     localStorage.setItem('realtime_portfolio_views', viewCount);
-    document.getElementById('liveViewCount').innerText = viewCount;
+    if(document.getElementById('liveViewCount1')) document.getElementById('liveViewCount1').innerText = viewCount;
 
     let isAdminUnlocked = localStorage.getItem('admin_unlocked') === 'true';
 
@@ -1341,15 +1503,15 @@
         btn.classList.add('unlocked');
         icon.className = 'fa-solid fa-lock-open';
         text.innerText = 'Owner Access';
-        notice.style.display = 'none';
-        submitBtn.disabled = false;
+        if (notice) notice.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
         inputs.forEach(input => input.disabled = false);
       } else {
         btn.classList.remove('unlocked');
         icon.className = 'fa-solid fa-lock';
         text.innerText = 'Viewer Mode';
-        notice.style.display = 'flex';
-        submitBtn.disabled = true;
+        if (notice) notice.style.display = 'flex';
+        if (submitBtn) submitBtn.disabled = true;
         inputs.forEach(input => input.disabled = true);
       }
       renderCustomData();
@@ -1423,9 +1585,11 @@
     let calendarEvents = JSON.parse(localStorage.getItem('live_portfolio_calendar')) || initialEvents;
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    function renderCalendar() {
-      const grid = document.getElementById('calendarGrid');
-      const title = document.getElementById('monthYearTitle');
+    function renderSingleCalendar(gridId, titleId) {
+      const grid = document.getElementById(gridId);
+      const title = document.getElementById(titleId);
+      if (!grid || !title) return;
+
       grid.innerHTML = '';
       title.innerText = `${months[currentMonth]} ${currentYear}`;
 
@@ -1485,6 +1649,11 @@
 
         grid.appendChild(cell);
       }
+    }
+
+    function renderCalendar() {
+      renderSingleCalendar('calendarGrid1', 'monthYearTitle1');
+      renderSingleCalendar('calendarGrid2', 'monthYearTitle2');
     }
 
     function changeMonth(dir) {
@@ -1581,68 +1750,65 @@
       closeModal();
     }
 
-    let resumeDataList = JSON.parse(localStorage.getItem('live_portfolio_resume_data')) || [
-      {
-        category: "Leadership Role",
-        title: "2nd LAYAGLAYA 2026 Film Festival",
-        date: "2026",
-        details: "Project Head managing overall festival execution, production, and departmental coordination."
-      }
-    ];
-
-    function renderCustomData() {
-      const container = document.getElementById('dynamicDataDisplay');
-      container.innerHTML = '';
-
-      if (resumeDataList.length === 0) {
-        container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No extra entries added yet.</p>';
-        return;
-      }
-
-      resumeDataList.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.style.cssText = "background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; position: relative;";
-        
-        card.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--primary); text-transform:uppercase;">${item.category}</span>
-            <span style="font-size:0.75rem; color:var(--text-muted);">${item.date || ''}</span>
-          </div>
-          <h4 style="color:#fff; font-size:1rem; margin-bottom:0.3rem;">${item.title}</h4>
-          <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5;">${item.details}</p>
-          ${isAdminUnlocked ? `<button onclick="deleteCustomData(${index})" style="background:transparent; border:none; color:var(--red); font-size:0.8rem; cursor:pointer; margin-top:0.5rem;"><i class="fa-solid fa-trash"></i> Delete Entry</button>` : ''}
-        `;
-        container.appendChild(card);
-      });
-    }
+    let resumeDataList = JSON.parse(localStorage.getItem('live_portfolio_resume_data')) || [];
 
     function handleAddData(e) {
       e.preventDefault();
-      if (!isAdminUnlocked) return;
+      if (!isAdminUnlocked) {
+        alert("Viewer Mode active! Unlock editing mode first.");
+        return;
+      }
 
       const category = document.getElementById('infoCategory').value.trim();
       const title = document.getElementById('infoTitle').value.trim();
       const date = document.getElementById('infoDate').value.trim();
       const details = document.getElementById('infoDetails').value.trim();
 
-      if (!category || !title || !details) return;
-
-      resumeDataList.push({ category, title, date, details });
+      const newItem = { id: Date.now(), category, title, date, details };
+      resumeDataList.push(newItem);
       localStorage.setItem('live_portfolio_resume_data', JSON.stringify(resumeDataList));
-      
+
       document.getElementById('customDataForm').reset();
       renderCustomData();
+      alert("Information successfully added!");
     }
 
-    function deleteCustomData(index) {
+    function deleteCustomData(id) {
       if (!isAdminUnlocked) return;
-      resumeDataList.splice(index, 1);
+      resumeDataList = resumeDataList.filter(item => item.id !== id);
       localStorage.setItem('live_portfolio_resume_data', JSON.stringify(resumeDataList));
       renderCustomData();
     }
 
-    updateLockUI();
+    function renderCustomData() {
+      const display = document.getElementById('dynamicDataDisplay');
+      if (!display) return;
+      display.innerHTML = '';
+
+      if (resumeDataList.length === 0) {
+        display.innerHTML = `<p style="color:var(--text-muted); font-size:0.9rem; font-style:italic;">No extra entries added yet.</p>`;
+        return;
+      }
+
+      resumeDataList.forEach(item => {
+        const box = document.createElement('div');
+        box.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem; position: relative;";
+        
+        box.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--primary); text-transform:uppercase;">${item.category}</span>
+            ${item.date ? `<span style="font-size:0.75rem; color:var(--text-muted);">${item.date}</span>` : ''}
+          </div>
+          <h4 style="color:#fff; font-size:1rem; margin-bottom:0.3rem;">${item.title}</h4>
+          <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.5;">${item.details}</p>
+          ${isAdminUnlocked ? `<button onclick="deleteCustomData(${item.id})" style="position:absolute; top:0.8rem; right:0.8rem; background:transparent; border:none; color:var(--red); cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
+        `;
+        display.appendChild(box);
+      });
+    }
+
     renderCalendar();
+    updateLockUI();
   </script>
 </body>
 </html>
