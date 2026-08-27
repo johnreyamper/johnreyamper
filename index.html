@@ -237,6 +237,34 @@
 
     .container { max-width: 1180px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; }
 
+    /* Role Header & Organization Badge Styling */
+    .role-header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .role-info-side {
+      flex: 1;
+    }
+
+    .role-badge-img {
+      width: 58px;
+      height: 58px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid var(--border-highlight);
+      box-shadow: 0 0 12px var(--primary-glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .glass-card:hover .role-badge-img {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
     /* Presentation Slide System */
     .slide-navigation-bar {
       display: flex;
@@ -974,51 +1002,67 @@
             <h2 class="section-title">Work Experience, Internship & Current Roles</h2>
           </div>
 
+          <!-- LAYAG -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">President</h3>
                 <p style="color:var(--primary); font-weight:600;">LAYAG '26</p>
               </div>
-              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+              <img src="https://iili.io/CbrIsQS.png" alt="LAYAG" class="role-badge-img">
+            </div>
+            <div style="margin-top:0.8rem;">
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green); display:inline-flex;">
                 <span class="badge-live">Current Role</span> 2026 – Present
               </span>
             </div>
           </div>
 
+          <!-- SUTCMS (VP External) -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Vice President for External Affairs</h3>
                 <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
                 <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
               </div>
-              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+              <img src="https://iili.io/CbrnnKG.jpg" alt="SUTCMS" class="role-badge-img">
+            </div>
+            <div style="margin-top:0.8rem;">
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green); display:inline-flex;">
                 <span class="badge-live">Current Role</span> 2026 – Present
               </span>
             </div>
           </div>
 
+          <!-- SUTCMS (Head of Extracurricular) -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Head of Unit on Extracurricular Affairs</h3>
                 <p style="color:var(--primary); font-weight:600;">State University of Technology Communication Management Society</p>
                 <p style="color:var(--text-muted); font-size:0.88rem;">University of Science and Technology of Southern Philippines</p>
               </div>
-              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green);">
+              <img src="https://iili.io/CbrnnKG.jpg" alt="SUTCMS" class="role-badge-img">
+            </div>
+            <div style="margin-top:0.8rem;">
+              <span class="pill" style="border-color:var(--green); background:rgba(74,222,128,0.1); color:var(--green); display:inline-flex;">
                 <span class="badge-live">Current Role</span> 2026 – Present
               </span>
             </div>
           </div>
 
+          <!-- SSLG Candabong NHS Adviser -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Student-Adviser</h3>
                 <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
               </div>
-              <span class="pill">2024 – 2025</span>
+              <img src="https://iili.io/CbrnXx1.jpg" alt="SSLG Candabong NHS" class="role-badge-img">
+            </div>
+            <div style="margin:0.8rem 0;">
+              <span class="pill" style="display:inline-flex;">2024 – 2025</span>
             </div>
             <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
               <li>Provided guidance and support to new student leaders of the organization.</li>
@@ -1026,13 +1070,17 @@
             </ul>
           </div>
 
+          <!-- The Scribe Layout Artist -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Layout Artist</h3>
                 <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
               </div>
-              <span class="pill">2024 – 2025</span>
+              <img src="https://iili.io/CbrCR6J.jpg" alt="The Scribe" class="role-badge-img">
+            </div>
+            <div style="margin:0.8rem 0;">
+              <span class="pill" style="display:inline-flex;">2024 – 2025</span>
             </div>
             <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
               <li>Designed layouts for articles, features, and publication materials.</li>
@@ -1040,13 +1088,17 @@
             </ul>
           </div>
 
+          <!-- SSLG Candabong NHS President -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">President</h3>
                 <p style="color:var(--primary); font-weight:600;">Candabong National High School, Supreme Secondary Learner Government (SSLG)</p>
               </div>
-              <span class="pill">2023 – 2024</span>
+              <img src="https://iili.io/CbrnXx1.jpg" alt="SSLG Candabong NHS" class="role-badge-img">
+            </div>
+            <div style="margin:0.8rem 0;">
+              <span class="pill" style="display:inline-flex;">2023 – 2024</span>
             </div>
             <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
               <li>Led student government initiatives and represented the student body.</li>
@@ -1054,13 +1106,17 @@
             </ul>
           </div>
 
+          <!-- Federation of SSLG -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Board Member</h3>
                 <p style="color:var(--primary); font-weight:600;">Anda District Federation of the Supreme Secondary Learner Government (SSLG)</p>
               </div>
-              <span class="pill">2023 – 2024</span>
+              <img src="https://iili.io/Cbru2Rf.jpg" alt="Federation of SSLG" class="role-badge-img">
+            </div>
+            <div style="margin:0.8rem 0;">
+              <span class="pill" style="display:inline-flex;">2023 – 2024</span>
             </div>
             <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
               <li>Participated in federation-level meetings and planning of inter-school activities.</li>
@@ -1068,13 +1124,17 @@
             </ul>
           </div>
 
+          <!-- The Scribe Associate Editor -->
           <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.8rem;">
-              <div>
+            <div class="role-header-content">
+              <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">Associate Editor</h3>
                 <p style="color:var(--primary); font-weight:600;">THE SCRIBE - Official School Publication of Candabong National High School</p>
               </div>
-              <span class="pill">2023 – 2024</span>
+              <img src="https://iili.io/CbrCR6J.jpg" alt="The Scribe" class="role-badge-img">
+            </div>
+            <div style="margin:0.8rem 0;">
+              <span class="pill" style="display:inline-flex;">2023 – 2024</span>
             </div>
             <ul style="margin-left:1.2rem; color:var(--text-muted); font-size:0.95rem;">
               <li>Assisted in editing articles and ensuring content quality for school publication.</li>
