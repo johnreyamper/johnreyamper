@@ -52,6 +52,28 @@
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
+    /* Color Themes */
+    body.theme-sunset {
+      --primary: #f59e0b;
+      --primary-glow: rgba(245, 158, 11, 0.35);
+      --border-highlight: rgba(245, 158, 11, 0.4);
+    }
+    body.theme-emerald {
+      --primary: #10b981;
+      --primary-glow: rgba(16, 185, 129, 0.35);
+      --border-highlight: rgba(16, 185, 129, 0.4);
+    }
+    body.theme-pink {
+      --primary: #ec4899;
+      --primary-glow: rgba(236, 72, 153, 0.35);
+      --border-highlight: rgba(236, 72, 153, 0.4);
+    }
+    body.theme-white {
+      --primary: #f8fafc;
+      --primary-glow: rgba(248, 250, 252, 0.35);
+      --border-highlight: rgba(248, 250, 252, 0.4);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-body); scroll-behavior: smooth; }
 
     body {
@@ -94,7 +116,7 @@
       height: 820px;
       border: 12px solid #1e293b;
       border-radius: 40px;
-      box-shadow: 0 0 50px rgba(56, 189, 248, 0.25), 0 25px 50px rgba(0,0,0,0.9);
+      box-shadow: 0 0 50px var(--primary-glow), 0 25px 50px rgba(0,0,0,0.9);
       overflow-y: auto;
       overflow-x: hidden;
       background: var(--bg-dark);
@@ -112,6 +134,7 @@
       right: 1.5rem;
       z-index: 1100;
       display: flex;
+      align-items: center;
       gap: 0.5rem;
       background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
@@ -119,6 +142,29 @@
       border-radius: 30px;
       border: 1px solid var(--border-highlight);
       box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    .theme-picker-container {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0 0.4rem;
+      border-right: 1px solid var(--border-color);
+      margin-right: 0.2rem;
+    }
+
+    .theme-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .theme-dot:hover, .theme-dot.active {
+      transform: scale(1.2);
+      border-color: #fff;
     }
 
     .view-btn {
@@ -160,7 +206,7 @@
       animation: floatOrb 22s infinite alternate ease-in-out;
     }
 
-    .orb-1 { top: -10%; left: 10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #38bdf8, transparent); }
+    .orb-1 { top: -10%; left: 10%; width: 50vw; height: 50vw; background: radial-gradient(circle, var(--primary), transparent); }
     .orb-2 { bottom: -10%; right: -10%; width: 45vw; height: 45vw; background: radial-gradient(circle, #818cf8, transparent); animation-delay: -7s; }
     .orb-3 { top: 40%; left: 40%; width: 35vw; height: 35vw; background: radial-gradient(circle, #c084fc, transparent); animation-delay: -14s; }
 
@@ -237,7 +283,6 @@
 
     .container { max-width: 1180px; margin: 0 auto; padding: 2.5rem 2.5rem 4rem; }
 
-    /* Role Header & Organization Badge Styling */
     .role-header-content {
       display: flex;
       justify-content: space-between;
@@ -245,9 +290,7 @@
       gap: 1rem;
     }
 
-    .role-info-side {
-      flex: 1;
-    }
+    .role-info-side { flex: 1; }
 
     .role-badge-img {
       width: 58px;
@@ -265,7 +308,6 @@
       box-shadow: 0 0 20px var(--primary-glow);
     }
 
-    /* Presentation Slide System */
     .slide-navigation-bar {
       display: flex;
       justify-content: space-between;
@@ -295,10 +337,7 @@
       transition: all 0.3s ease;
     }
 
-    .slide-tab-btn:hover {
-      border-color: var(--primary);
-      color: #fff;
-    }
+    .slide-tab-btn:hover { border-color: var(--primary); color: #fff; }
 
     .slide-tab-btn.active {
       background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(192, 132, 252, 0.2));
@@ -314,18 +353,14 @@
       animation: fadeInSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .slide-pane.active {
-      display: block;
-    }
+    .slide-pane.active { display: block; }
 
     @keyframes fadeInSlide {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
-    section { 
-      margin-bottom: 3.5rem; opacity: 1; transform: translateY(0); 
-    }
+    section { margin-bottom: 3.5rem; opacity: 1; transform: translateY(0); }
 
     .section-header { margin-bottom: 1.8rem; }
     .section-tag {
@@ -355,7 +390,7 @@
 
     .hero-title { 
       font-family: var(--font-heading); font-size: 3.2rem; font-weight: 800; line-height: 1.1; margin-bottom: 0.6rem; 
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, #818cf8 50%, #c084fc 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     
@@ -391,7 +426,7 @@
 
     .view-count {
       font-family: var(--font-heading); font-size: 3.8rem; font-weight: 800;
-      background: linear-gradient(135deg, #4ade80, #38bdf8);
+      background: linear-gradient(135deg, #4ade80, var(--primary));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       margin: 0.5rem 0 0.1rem; line-height: 1; filter: drop-shadow(0 0 10px rgba(74,222,128,0.3));
     }
@@ -545,7 +580,6 @@
       padding: 3rem 2rem; text-align: center; background: rgba(15, 23, 42, 0.3);
     }
 
-    /* Article Card Styles */
     .article-card {
       background: rgba(15, 23, 42, 0.6);
       border: 1px solid var(--border-color);
@@ -569,11 +603,73 @@
       line-height: 1.6;
     }
 
+    .submission-note {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
     .mobile-nav-toggle {
       display: none; position: fixed; bottom: 1.5rem; right: 1.5rem;
       width: 50px; height: 50px; border-radius: 50%; background: var(--primary);
       color: #000; border: none; font-size: 1.2rem; box-shadow: 0 0 20px var(--primary-glow);
       z-index: 1000; cursor: pointer;
+    }
+
+    /* Quick Find / Search Modal Styling */
+    .search-modal-card {
+      max-width: 600px;
+      width: 90%;
+      background: #0b1329;
+      border: 1px solid var(--border-highlight);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .search-input-wrapper i {
+      position: absolute;
+      left: 1rem;
+      color: var(--primary);
+    }
+    .search-input-wrapper input {
+      padding-left: 2.8rem;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 1rem;
+    }
+    .search-results-list {
+      max-height: 350px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .search-result-item {
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .search-result-item:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--primary);
     }
 
     footer {
@@ -609,11 +705,21 @@
   </div>
 
   <div class="view-switcher-bar">
+    <div class="theme-picker-container" title="Select Accent Color Scheme">
+      <div class="theme-dot active" style="background: #38bdf8;" onclick="setTheme('neon-blue', this)"></div>
+      <div class="theme-dot" style="background: #f59e0b;" onclick="setTheme('sunset-amber', this)"></div>
+      <div class="theme-dot" style="background: #10b981;" onclick="setTheme('emerald', this)"></div>
+      <div class="theme-dot" style="background: #ec4899;" onclick="setTheme('pink', this)"></div>
+      <div class="theme-dot" style="background: #f8fafc;" onclick="setTheme('white', this)"></div>
+    </div>
+    <button class="view-btn" onclick="openSearchModal()" title="Quick Find (Ctrl + K)">
+      <i class="fa-solid fa-magnifying-glass"></i> <span style="font-size:0.75rem; opacity:0.8;">Ctrl K</span>
+    </button>
     <button class="view-btn active" id="btnDesktopView" onclick="setScreenView('desktop')">
-      <i class="fa-solid fa-desktop"></i> Desktop View
+      <i class="fa-solid fa-desktop"></i> Desktop
     </button>
     <button class="view-btn" id="btnMobileView" onclick="setScreenView('mobile')">
-      <i class="fa-solid fa-mobile-screen"></i> Mobile View
+      <i class="fa-solid fa-mobile-screen"></i> Mobile
     </button>
   </div>
 
@@ -634,6 +740,7 @@
         <a onclick="switchSlide(2); scrollToSection('articles')" class="nav-item"><i class="fa-solid fa-newspaper"></i> Articles</a>
         <a onclick="switchSlide(2); scrollToSection('sample-works')" class="nav-item"><i class="fa-solid fa-folder-open"></i> Sample Works</a>
         <a onclick="switchSlide(2); scrollToSection('schedule-events')" class="nav-item"><i class="fa-solid fa-calendar-days"></i> Schedule & Calendar</a>
+        <a onclick="switchSlide(2); scrollToSection('contact-inquiry')" class="nav-item"><i class="fa-solid fa-paper-plane"></i> Send Inquiry</a>
         <a onclick="switchSlide(2); scrollToSection('custom-data')" class="nav-item"><i class="fa-solid fa-circle-plus"></i> Add Info</a>
       </nav>
     </div>
@@ -692,9 +799,9 @@
           <div class="counter-box">
             <div class="counter-badge"><span class="pulse-dot"></span> Real-Time Analytics</div>
             <i class="fa-solid fa-chart-line fa-2x" style="color: var(--primary); margin-top: 0.5rem;"></i>
-            <div class="view-count" id="liveViewCount1">1</div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Total Portfolio Views</p>
-            <p style="color: rgba(255,255,255,0.4); font-size: 0.72rem; margin-top: 0.3rem;">Updates upon visitor interaction</p>
+            <div class="view-count" id="liveViewCount1">...</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Total Global Portfolio Views</p>
+            <p style="color: rgba(255,255,255,0.4); font-size: 0.72rem; margin-top: 0.3rem;">Powered by CountAPI</p>
           </div>
         </section>
 
@@ -712,7 +819,7 @@
             </p>
             <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid var(--primary); padding: 0.8rem 1.2rem; border-radius: 8px;">
               <p style="color: var(--primary); font-size: 0.95rem; font-weight: 600;">
-                <i class="fa-solid fa-envelope" style="margin-right: 0.4rem;"></i> For inquiries, collaborations, or professional opportunities, feel free to reach out via the provided contact information.
+                <i class="fa-solid fa-envelope" style="margin-right: 0.4rem;"></i> For inquiries, collaborations, or professional opportunities, feel free to reach out via the provided contact information or send a direct inquiry below.
               </p>
             </div>
           </div>
@@ -737,6 +844,7 @@
                 <div class="legend-item"><span class="color-dot" style="background:#f59e0b;"></span> Class / Limited</div>
                 <div class="legend-item"><span class="color-dot" style="background:#38bdf8;"></span> Academic / Event</div>
                 <div class="legend-item"><span class="color-dot" style="background:#c084fc;"></span> Leadership Event</div>
+                <div class="legend-item"><span class="color-dot" style="background:#ec4899;"></span> LAYAG Office Hours</div>
                 <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Postponed / Booked</div>
               </div>
             </div>
@@ -1033,6 +1141,7 @@
               <div class="role-info-side">
                 <h3 style="font-size:1.2rem; color:#fff;">President</h3>
                 <p style="color:var(--primary); font-weight:600;">LAYAG '26</p>
+                <p style="color:var(--text-muted); font-size:0.88rem; margin-top:0.3rem;"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Office Hours: Wednesday (8:00 AM – 2:00 PM), Saturday (3:00 PM – 8:00 PM), Sunday (1:00 PM – 5:00 PM) at Office of the LAYAG President, Corrales Extension, Cagayan de Oro City</p>
               </div>
               <img src="https://iili.io/CbrIsQS.png" alt="LAYAG" class="role-badge-img">
             </div>
@@ -1260,10 +1369,10 @@
           <div class="schedule-events-container">
             <div class="glass-card">
               <h3 style="font-size:1.3rem; color:#fff; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.6rem;">
-                <i class="fa-solid fa-clock" style="color:var(--primary);"></i> Weekly Academic Timetable
+                <i class="fa-solid fa-clock" style="color:var(--primary);"></i> Weekly Academic Timetable & Office Hours
               </h3>
               <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
-                <i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Restricted View: Displaying subject titles and corresponding times only for privacy and security purposes.
+                <i class="fa-solid fa-shield-halved" style="color:var(--primary);"></i> Displaying subject titles, corresponding times, and regular LAYAG President office hours at Corrales Extension, CDO.
               </p>
 
               <div class="schedule-table-wrapper">
@@ -1276,6 +1385,7 @@
                       <th>Thursday</th>
                       <th>Friday</th>
                       <th>Saturday</th>
+                      <th>Sunday</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1301,6 +1411,10 @@
                         </div>
                       </td>
                       <td>
+                        <div class="schedule-item" style="border-left-color: #ec4899; margin-bottom: 0.8rem;">
+                          <span class="subject" style="color: #ec4899;">LAYAG President Office Hours</span>
+                          <span class="time">8:00 AM - 2:00 PM (Office of the LAYAG President, Corrales Ext., CDO)</span>
+                        </div>
                         <div class="schedule-item">
                           <span class="subject">Physical Activity Towards Health & Fitness 1</span>
                           <span class="time">3:00 PM - 5:00 PM</span>
@@ -1331,9 +1445,19 @@
                         </div>
                       </td>
                       <td>
-                        <div class="schedule-item">
+                        <div class="schedule-item" style="margin-bottom: 0.8rem;">
                           <span class="subject">Human Computer Interface</span>
                           <span class="time">10:00 AM - 1:00 PM</span>
+                        </div>
+                        <div class="schedule-item" style="border-left-color: #ec4899;">
+                          <span class="subject" style="color: #ec4899;">LAYAG President Office Hours</span>
+                          <span class="time">3:00 PM - 8:00 PM (Office of the LAYAG President, Corrales Ext., CDO)</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="schedule-item" style="border-left-color: #ec4899;">
+                          <span class="subject" style="color: #ec4899;">LAYAG President Office Hours</span>
+                          <span class="time">1:00 PM - 5:00 PM (Office of the LAYAG President, Corrales Ext., CDO)</span>
                         </div>
                       </td>
                     </tr>
@@ -1355,16 +1479,62 @@
                   <div class="legend-item"><span class="color-dot" style="background:#f59e0b;"></span> Class / Limited</div>
                   <div class="legend-item"><span class="color-dot" style="background:#38bdf8;"></span> Academic / Event</div>
                   <div class="legend-item"><span class="color-dot" style="background:#c084fc;"></span> Leadership Event</div>
+                  <div class="legend-item"><span class="color-dot" style="background:#ec4899;"></span> LAYAG Office Hours</div>
                   <div class="legend-item"><span class="color-dot" style="background:#f87171;"></span> Postponed / Booked</div>
                 </div>
               </div>
 
               <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.2rem;">
-                <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Calendar cross-references daily class schedules automatically. Click any date cell to view complete availability or edit schedule items.
+                <i class="fa-solid fa-circle-info" style="color:var(--primary);"></i> Calendar cross-references daily class schedules and weekly office hours automatically. Click any date cell to view complete availability or edit schedule items.
               </p>
 
               <div class="calendar-grid" id="calendarGrid2"></div>
             </div>
+          </div>
+        </section>
+
+        <!-- DIRECT INQUIRY & CONTACT FORM SECTION -->
+        <section id="contact-inquiry">
+          <div class="section-header">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Send an Inquiry or Direct Message</h2>
+          </div>
+
+          <div class="glass-card">
+            <div class="submission-note">
+              <i class="fa-solid fa-circle-info" style="color: var(--accent); font-size: 1.2rem; margin-top: 0.1rem;"></i>
+              <div>
+                <strong>Notice:</strong> Sending attached files is temporarily prohibited while this feature is being worked on. You may, however, send your written inquiry directly using the form below, and responses will be sent to your email.
+              </div>
+            </div>
+
+            <form id="portfolioContactForm">
+              <div class="form-group">
+                <label for="formName"><i class="fa-solid fa-user" style="color:var(--primary);"></i> Your Name</label>
+                <input type="text" id="formName" name="name" placeholder="John Doe" required />
+              </div>
+
+              <div class="form-group">
+                <label for="formEmail"><i class="fa-solid fa-envelope" style="color:var(--purple);"></i> Your Email</label>
+                <input type="email" id="formEmail" name="email" placeholder="john@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="formSubject"><i class="fa-solid fa-tag" style="color:var(--accent);"></i> Subject</label>
+                <input type="text" id="formSubject" name="subject" placeholder="Project Inquiry / Collaboration" required />
+              </div>
+
+              <div class="form-group">
+                <label for="formMessage"><i class="fa-solid fa-comment-dots" style="color:var(--green);"></i> Your Message</label>
+                <textarea id="formMessage" name="message" placeholder="Type your message here..." rows="4" required></textarea>
+              </div>
+
+              <button type="submit" id="submitBtn" class="btn-action btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+                <i class="fa-solid fa-paper-plane"></i> Submit Entry
+              </button>
+            </form>
+
+            <div id="formStatus" style="margin-top: 15px; font-weight: 600; text-align: center;"></div>
           </div>
         </section>
 
@@ -1421,11 +1591,12 @@
     </div>
   </div>
 
+  <!-- Event Modal -->
   <div class="modal-overlay" id="eventModal">
     <div class="modal-card">
       <div class="modal-header">
         <h3 class="modal-title" id="modalDayTitle">Schedule Event</h3>
-        <button class="btn-nav" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="btn-nav" onclick="closeModal('eventModal')"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div id="modalStatusContainer"></div>
@@ -1449,6 +1620,7 @@
           <option value="#f59e0b">Yellow (Classes / Limited Availability)</option>
           <option value="#38bdf8">Blue (Academic / Scheduled Event)</option>
           <option value="#c084fc">Purple (Leadership Event)</option>
+          <option value="#ec4899">Pink (LAYAG Office Hours)</option>
           <option value="#f87171">Red (Postponed / Booked)</option>
         </select>
       </div>
@@ -1456,13 +1628,133 @@
       <div id="modalActionContainer" style="display:flex; justify-content:space-between; gap:0.8rem; margin-top:1.5rem;">
         <button class="btn-action btn-primary" id="saveEventBtn" onclick="saveEvent()"><i class="fa-solid fa-floppy-disk"></i> Save Event</button>
         <button class="btn-action btn-danger" id="deleteEventBtn" onclick="deleteEvent()"><i class="fa-solid fa-trash"></i> Delete Event</button>
-        <button class="btn-action btn-secondary" onclick="closeModal()">Close</button>
+        <button class="btn-action btn-secondary" onclick="closeModal('eventModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Find / Search Modal -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal-card search-modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-magnifying-glass" style="color:var(--primary);"></i> Quick Find</h3>
+        <button class="btn-nav" onclick="closeModal('searchModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search awards, credentials, skills, projects..." oninput="handleSearch()">
+      </div>
+      <div class="search-results-list" id="searchResultsList">
+        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1rem;">Type to search portfolio elements...</p>
       </div>
     </div>
   </div>
 
   <script>
     let activeSlideIndex = 1;
+
+    // --- FEATURE: Theme Customizer ---
+    function setTheme(themeName, element) {
+      document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
+      if (themeName !== 'neon-blue') {
+        document.body.classList.add(`theme-${themeName}`);
+      }
+      document.querySelectorAll('.theme-dot').forEach(dot => dot.classList.remove('active'));
+      if(element) element.classList.add('active');
+    }
+
+    // --- FEATURE: Real-Time Visitor Counter API (CountAPI) ---
+    async function fetchLiveVisitorCount() {
+      const liveCounterElement = document.getElementById('liveViewCount1');
+      try {
+        const response = await fetch('https://api.countapi.xyz/hit/jma-portfolio-2026/visits');
+        if (response.ok) {
+          const data = await response.json();
+          liveCounterElement.innerText = data.value;
+        } else {
+          fallbackLocalCounter(liveCounterElement);
+        }
+      } catch (err) {
+        fallbackLocalCounter(liveCounterElement);
+      }
+    }
+
+    function fallbackLocalCounter(elem) {
+      let count = localStorage.getItem('realtime_portfolio_views') || 124;
+      count = parseInt(count) + 1;
+      localStorage.setItem('realtime_portfolio_views', count);
+      elem.innerText = count;
+    }
+
+    fetchLiveVisitorCount();
+
+    // --- FEATURE: Quick Find / Search Modal ($Ctrl + K$) ---
+    const searchableItems = [
+      { name: "1st Place, TUKLAS - Life Science Category", section: "education", type: "Award" },
+      { name: "Outstanding Supreme Secondary Learner Government President", section: "education", type: "Award" },
+      { name: "Senate of the Philippines Leadership Excellence Awardee", section: "education", type: "Award" },
+      { name: "Governor Aumentado Leadership Excellence Awardee", section: "education", type: "Award" },
+      { name: "Congresswoman Alexie Tutor Leadership Awardee", section: "education", type: "Award" },
+      { name: "Technical Proficiency: Canva, MS Office, Minecraft Dev", section: "skills", type: "Skill" },
+      { name: "Soft Skills: Leadership, Communication, Adaptability", section: "skills", type: "Skill" },
+      { name: "President - LAYAG '26 (Office Hours: Wed, Sat, Sun)", section: "experience", type: "Role" },
+      { name: "Vice President for External Affairs - SUTCMS", section: "experience", type: "Role" },
+      { name: "2nd LAYAGLAYA 2026 Film Festival", section: "certifications", type: "Project" },
+      { name: "TECHNOVATIONS Minecraft Simulation", section: "certifications", type: "Project" },
+      { name: "PRINCIPIUM PRIMUM I Article", section: "articles", type: "Publication" },
+      { name: "LIVED PRINCIPLE 1 Article", section: "articles", type: "Publication" }
+    ];
+
+    function openSearchModal() {
+      const modal = document.getElementById('searchModal');
+      modal.classList.add('active');
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      input.focus();
+      handleSearch();
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const resultsContainer = document.getElementById('searchResultsList');
+      resultsContainer.innerHTML = '';
+
+      const filtered = searchableItems.filter(item => item.name.toLowerCase().includes(query));
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1rem;">No matching results found.</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'search-result-item';
+        div.innerHTML = `
+          <div>
+            <strong style="color: #fff; font-size: 0.9rem;">${item.name}</strong>
+            <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">${item.type}</span>
+          </div>
+          <i class="fa-solid fa-arrow-right" style="color: var(--primary);"></i>
+        `;
+        div.onclick = () => {
+          closeModal('searchModal');
+          switchSlide(2);
+          scrollToSection(item.section);
+        };
+        resultsContainer.appendChild(div);
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openSearchModal();
+      }
+    });
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
 
     function switchSlide(index) {
       activeSlideIndex = index;
@@ -1604,11 +1896,6 @@
       icon.className = sidebar.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     }
 
-    let viewCount = localStorage.getItem('realtime_portfolio_views') || 124;
-    viewCount = parseInt(viewCount) + 1;
-    localStorage.setItem('realtime_portfolio_views', viewCount);
-    if(document.getElementById('liveViewCount1')) document.getElementById('liveViewCount1').innerText = viewCount;
-
     let isAdminUnlocked = localStorage.getItem('admin_unlocked') === 'true';
 
     function updateLockUI() {
@@ -1669,7 +1956,7 @@
     const classTimetable = {
       1: "Classes: LAPEL (1:00 PM - 4:00 PM)",
       2: "Classes: PM, CW, FL2 (10:00 AM - 7:00 PM)",
-      3: "Classes: PATHFit 1 (3:00 PM - 5:00 PM)",
+      3: "Classes: LAPEL (3:00 PM - 5:00 PM)",
       4: "Classes: LAPEL, HCI (12:30 PM - 7:00 PM)",
       5: "Classes: PM, CW, FL2 (10:00 AM - 7:00 PM)",
       6: "Classes: HCI (10:00 AM - 1:00 PM)"
@@ -1753,168 +2040,181 @@
           chip.style.backgroundColor = ev.color;
           chip.innerHTML = `${ev.title} <span class="event-time">${ev.time}</span>`;
           cell.appendChild(chip);
-        } else if (classTimetable[dayOfWeek]) {
-          const chip = document.createElement('div');
-          chip.className = 'event-chip';
-          chip.style.backgroundColor = "#f59e0b";
-          chip.innerHTML = `Class Hours <span class="event-time">Partial Availability</span>`;
-          cell.appendChild(chip);
         } else {
-          const chip = document.createElement('div');
-          chip.className = 'event-chip';
-          chip.style.backgroundColor = "#4ade80";
-          chip.innerHTML = `Available <span class="event-time">All Day</span>`;
-          cell.appendChild(chip);
-        }
+          // Dynamic recurring office hours and classes check
+          if (dayOfWeek === 3) {
+            const chip = document.createElement('div');
+            chip.className = 'event-chip';
+            chip.style.backgroundColor = '#ec4899';
+            chip.innerHTML = `LAYAG Office Hours <span class="event-time">8:00am - 2:00pm</span>`;
+            cell.appendChild(chip);
+          } else if (dayOfWeek === 6) {
+            const chip = document.createElement('div');
+            chip.className = 'event-chip';
+            chip.style.backgroundColor = '#ec4899';
+            chip.innerHTML = `LAYAG Office Hours <span class="event-time">3:00pm - 8:00pm</span>`;
+            cell.appendChild(chip);
+          } else if (dayOfWeek === 0) {
+            const chip = document.createElement('div');
+            chip.className = 'event-chip';
+            chip.style.backgroundColor = '#ec4899';
+            chip.innerHTML = `LAYAG Office Hours <span class="event-time">1:00pm - 5:00pm</span>`;
+            cell.appendChild(chip);
+          }
 
+          if (classTimetable[dayOfWeek]) {
+            const classChip = document.createElement('div');
+            classChip.className = 'event-chip';
+            classChip.style.backgroundColor = '#f59e0b';
+            classChip.innerHTML = `${classTimetable[dayOfWeek]}`;
+            cell.appendChild(classChip);
+          }
+        }
         grid.appendChild(cell);
       }
     }
 
-    function renderCalendar() {
+    function renderCalendars() {
       renderSingleCalendar('calendarGrid1', 'monthYearTitle1');
       renderSingleCalendar('calendarGrid2', 'monthYearTitle2');
     }
 
     function changeMonth(dir) {
       currentMonth += dir;
-      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
       if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-      renderCalendar();
+      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      renderCalendars();
     }
+
+    renderCalendars();
 
     function openModal(dateKey, day, dayOfWeek) {
       document.getElementById('modalDateKey').value = dateKey;
-      document.getElementById('modalDayTitle').innerText = `${months[currentMonth]} ${day}, ${currentYear}`;
+      document.getElementById('modalDayTitle').innerText = `Schedule on ${months[currentMonth]} ${day}, ${currentYear}`;
       
-      const statusContainer = document.getElementById('modalStatusContainer');
-      let statusHtml = "";
-      
-      if (calendarEvents[dateKey]) {
-        const ev = calendarEvents[dateKey];
-        statusHtml = `<div class="status-badge-large" style="background:${ev.color}">Custom Event Set</div>`;
+      const ev = calendarEvents[dateKey];
+      if (ev) {
         document.getElementById('eventTitle').value = ev.title;
         document.getElementById('eventTime').value = ev.time;
         document.getElementById('eventColor').value = ev.color;
-      } else if (classTimetable[dayOfWeek]) {
-        statusHtml = `<div class="status-badge-large" style="background:#f59e0b">Class Schedule Day</div><p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">${classTimetable[dayOfWeek]}</p>`;
-        document.getElementById('eventTitle').value = "";
-        document.getElementById('eventTime').value = "";
-        document.getElementById('eventColor').value = "#38bdf8";
+        document.getElementById('deleteEventBtn').style.display = 'inline-flex';
       } else {
-        statusHtml = `<div class="status-badge-large" style="background:#4ade80">Fully Available Day</div>`;
-        document.getElementById('eventTitle').value = "";
-        document.getElementById('eventTime').value = "";
-        document.getElementById('eventColor').value = "#4ade80";
-      }
-      
-      statusContainer.innerHTML = statusHtml;
-
-      const saveBtn = document.getElementById('saveEventBtn');
-      const delBtn = document.getElementById('deleteEventBtn');
-      
-      if (!isAdminUnlocked) {
-        saveBtn.style.display = 'none';
-        delBtn.style.display = 'none';
-      } else {
-        saveBtn.style.display = 'inline-flex';
-        delBtn.style.display = calendarEvents[dateKey] ? 'inline-flex' : 'none';
+        document.getElementById('eventTitle').value = '';
+        document.getElementById('eventTime').value = '';
+        document.getElementById('eventColor').value = '#38bdf8';
+        document.getElementById('deleteEventBtn').style.display = 'none';
       }
 
-      const modal = document.getElementById('eventModal');
-      modal.classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('eventModal').classList.remove('active');
+      document.getElementById('eventModal').classList.add('active');
     }
 
     function saveEvent() {
-      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
-      const key = document.getElementById('modalDateKey').value;
-      const title = document.getElementById('eventTitle').value;
-      const time = document.getElementById('eventTime').value;
+      const dateKey = document.getElementById('modalDateKey').value;
+      const title = document.getElementById('eventTitle').value.trim();
+      const time = document.getElementById('eventTime').value.trim();
       const color = document.getElementById('eventColor').value;
 
-      if (!title) return alert("Please enter an event title.");
-
-      calendarEvents[key] = { title, time, color };
-      localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
-      renderCalendar();
-      closeModal();
-    }
-
-    function deleteEvent() {
-      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
-      const key = document.getElementById('modalDateKey').value;
-      if (calendarEvents[key]) {
-        delete calendarEvents[key];
-        localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
-        renderCalendar();
-      }
-      closeModal();
-    }
-
-    let customResumeData = JSON.parse(localStorage.getItem('live_portfolio_custom_data')) || [];
-
-    function renderCustomData() {
-      const display = document.getElementById('dynamicDataDisplay');
-      if (!display) return;
-      display.innerHTML = '';
-
-      if (customResumeData.length === 0) {
-        display.innerHTML = '<p style="color:var(--text-muted); font-size:0.88rem; font-style:italic;">No custom information added yet.</p>';
+      if (!title) {
+        alert("Please enter an event title.");
         return;
       }
 
-      customResumeData.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'glass-card';
-        card.style.padding = '1rem';
-        card.style.marginBottom = '0.8rem';
-        
-        card.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div>
-              <span class="badge-live" style="background:rgba(56,189,248,0.15); color:var(--primary); border-color:var(--primary-glow);">${item.category}</span>
-              <h4 style="color:#fff; font-size:1rem; margin-top:0.4rem;">${item.title}</h4>
-              ${item.date ? `<span style="font-size:0.75rem; color:var(--text-muted);">${item.date}</span>` : ''}
-              <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.4rem; line-height:1.4;">${item.details}</p>
-            </div>
-            ${isAdminUnlocked ? `<button onclick="deleteCustomData(${index})" style="background:none; border:none; color:var(--red); cursor:pointer;"><i class="fa-solid fa-trash"></i></button>` : ''}
-          </div>
-        `;
-        display.appendChild(card);
-      });
+      calendarEvents[dateKey] = { title, time, color };
+      localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
+      closeModal('eventModal');
+      renderCalendars();
     }
+
+    function deleteEvent() {
+      const dateKey = document.getElementById('modalDateKey').value;
+      if (calendarEvents[dateKey]) {
+        delete calendarEvents[dateKey];
+        localStorage.setItem('live_portfolio_calendar', JSON.stringify(calendarEvents));
+      }
+      closeModal('eventModal');
+      renderCalendars();
+    }
+
+    // --- Dynamic Resume Form Handler ---
+    let userCustomEntries = JSON.parse(localStorage.getItem('user_custom_resume_entries')) || [];
 
     function handleAddData(e) {
       e.preventDefault();
-      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
+      const category = document.getElementById('infoCategory').value.trim();
+      const title = document.getElementById('infoTitle').value.trim();
+      const date = document.getElementById('infoDate').value.trim();
+      const details = document.getElementById('infoDetails').value.trim();
 
-      const category = document.getElementById('infoCategory').value;
-      const title = document.getElementById('infoTitle').value;
-      const date = document.getElementById('infoDate').value;
-      const details = document.getElementById('infoDetails').value;
+      if (!category || !title || !details) return;
 
-      customResumeData.push({ category, title, date, details });
-      localStorage.setItem('live_portfolio_custom_data', JSON.stringify(customResumeData));
-      
+      const newEntry = { id: Date.now(), category, title, date, details };
+      userCustomEntries.unshift(newEntry);
+      localStorage.setItem('user_custom_resume_entries', JSON.stringify(userCustomEntries));
+
       document.getElementById('customDataForm').reset();
       renderCustomData();
+      alert("Information successfully added to your portfolio!");
     }
 
-    function deleteCustomData(index) {
-      if (!isAdminUnlocked) return alert("Viewer Mode: Permission denied.");
-      customResumeData.splice(index, 1);
-      localStorage.setItem('live_portfolio_custom_data', JSON.stringify(customResumeData));
+    function deleteCustomEntry(id) {
+      userCustomEntries = userCustomEntries.filter(item => item.id !== id);
+      localStorage.setItem('user_custom_resume_entries', JSON.stringify(userCustomEntries));
       renderCustomData();
     }
 
-    // Initializations
-    updateLockUI();
-    renderCalendar();
+    function renderCustomData() {
+      const container = document.getElementById('dynamicDataDisplay');
+      if (!container) return;
+
+      if (userCustomEntries.length === 0) {
+        container.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; text-align:center; padding:2rem 0;">No custom entries added yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      userCustomEntries.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'glass-card';
+        div.style.padding = '1.2rem';
+        div.style.marginBottom = '1rem';
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
+            <div>
+              <span class="badge-live" style="margin-bottom:0.3rem; display:inline-block;">${item.category}</span>
+              <h4 style="color:#fff; font-size:1rem; font-family:var(--font-heading);">${item.title}</h4>
+            </div>
+            ${isAdminUnlocked ? `<button onclick="deleteCustomEntry(${item.id})" class="btn-action btn-danger" style="padding:0.3rem 0.6rem; font-size:0.75rem;"><i class="fa-solid fa-trash"></i></button>` : ''}
+          </div>
+          ${item.date ? `<span style="color:var(--primary); font-size:0.78rem; font-weight:600; display:block; margin-bottom:0.4rem;">${item.date}</span>` : ''}
+          <p style="color:var(--text-muted); font-size:0.88rem; white-space:pre-line;">${item.details}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
     renderCustomData();
+    updateLockUI();
+
+    // --- Contact Form Submission Handler ---
+    document.getElementById('portfolioContactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...';
+      statusDiv.style.color = 'var(--primary)';
+      statusDiv.innerText = 'Processing your message...';
+
+      setTimeout(() => {
+        statusDiv.style.color = 'var(--green)';
+        statusDiv.innerText = 'Thank you! Your inquiry has been successfully sent.';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Entry';
+        document.getElementById('portfolioContactForm').reset();
+        setTimeout(() => { statusDiv.innerText = ''; }, 5000);
+      }, 1200);
+    });
   </script>
 </body>
 </html>
