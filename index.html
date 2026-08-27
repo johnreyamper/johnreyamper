@@ -946,6 +946,65 @@
                 </div>
               </div>
 
+              <script>
+       // Configuration
+       const ADMIN_PASSCODE = "127955";
+       let isAdmin = false;
+
+       // Execute after DOM is fully loaded
+       document.addEventListener("DOMContentLoaded", function () {
+         updateAdminUI();
+       });
+
+       function toggleAdminLock() {
+         if (!isAdmin) {
+           const userPasscode = prompt("Enter Admin Passcode to enable Edit Mode:");
+           if (userPasscode === ADMIN_PASSCODE) {
+             isAdmin = true;
+             alert("Access Granted! Admin Mode Enabled.");
+             updateAdminUI();
+           } else if (userPasscode !== null) {
+             alert("Incorrect passcode! Access denied.");
+           }
+         } else {
+           isAdmin = false;
+           alert("Switched to Viewer Mode.");
+           updateAdminUI();
+         }
+       }
+
+       function updateAdminUI() {
+         const adminToggleBtn = document.getElementById("adminToggleBtn");
+         const lockIcon = document.getElementById("lockIcon");
+         const lockText = document.getElementById("lockText");
+         const formLockNotice = document.getElementById("formLockNotice");
+
+         const formInputs = document.querySelectorAll("#customDataForm input, #customDataForm textarea, #customDataForm button");
+         const saveEventBtn = document.getElementById("saveEventBtn");
+         const deleteEventBtn = document.getElementById("deleteEventBtn");
+
+         if (isAdmin) {
+           if (adminToggleBtn) adminToggleBtn.classList.add("unlocked");
+           if (lockIcon) lockIcon.className = "fa-solid fa-lock-open";
+           if (lockText) lockText.innerText = "Admin Mode";
+           if (formLockNotice) formLockNotice.style.display = "none";
+
+           formInputs.forEach(input => input.disabled = false);
+           if (saveEventBtn) saveEventBtn.style.display = "inline-flex";
+           if (deleteEventBtn) deleteEventBtn.style.display = "inline-flex";
+         } else {
+           if (adminToggleBtn) adminToggleBtn.classList.remove("unlocked");
+           if (lockIcon) lockIcon.className = "fa-solid fa-lock";
+           if (lockText) lockText.innerText = "Viewer Mode";
+           if (formLockNotice) formLockNotice.style.display = "flex";
+
+           formInputs.forEach(input => input.disabled = true);
+           if (saveEventBtn) saveEventBtn.style.display = "none";
+           if (deleteEventBtn) deleteEventBtn.style.display = "none";
+         }
+       }
+     </script>
+              
               <div class="award-card rank-first" data-category="top journalism">
                 <div class="award-info">
                   <i class="fa-solid fa-medal fa-lg"></i>
